@@ -10,12 +10,18 @@
  <p class="notice"><%= notice %></p>
  <p class="alert"><%= alert %></p>
 
+<p>
 <% if user_signed_in? %>
 	<%= current_user.email %>
 	<%= link_to "Edit Account", edit_user_registration_path %> | <%= link_to "LogOut", destroy_user_session_path, method: :delete %>
 	<% else %>
 	<%= link_to "Login", new_user_session_path %> | <%= link_to "Register", new_user_registration_path %>
 <% end %>
+</p>
+
+<p>
+	<%= link_to "Amenities", amenities_path %> | <%= link_to "Cities", cities_path %> | <%= link_to "Rooms", rooms_path %>  <%#= link_to "Bookings", bookings_path %>
+</p>
 
 <%= yield %>
 

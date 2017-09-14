@@ -1,0 +1,28 @@
+<h2>Listing Rooms</h2>
+
+<% if @rooms.empty? %>
+	<p> No Rooms Found </p>
+<% else %>
+	<table border="1">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<% @rooms.each do |room| %>
+						<td><%= room.name %></td>
+						<td><p><%= link_to "show", room_path(room.id) %></p></td>
+				<% end %>
+			</tr>
+		</tbody>
+	</table>
+<% end %>
+
+<%= will_paginate @rooms %>
+
+<% if can? :create, Room.new %>
+	<%= link_to "Add Room", new_room_path %>
+<% end %>

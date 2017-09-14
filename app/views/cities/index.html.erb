@@ -1,1 +1,20 @@
-<h2>Welcome </h2>
+<h2>Listing Cities </h2>
+
+<% if @cities.empty? %>
+	<p> No Cities Found </p>
+<% else %>
+	<ul>
+		<% @cities.each do |city| %>
+			<li>
+				<%= city.name %> |
+				<%= link_to "Show", city_path(city.id) %>
+			</li>
+		<% end %>
+	</ul>
+<% end %>
+
+<% if can? :create, City.new %>
+	<%= link_to "Add City", new_city_path %>
+<% end %>
+
+

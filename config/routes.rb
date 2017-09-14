@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
+  get 'admins/rooms'
+  get 'portals/rooms'
+  get 'rooms/location'
+  get 'rooms/mark_authorize'
+  
   devise_for :users
+  resources :rooms
   resources :cities
+  resources :amenities
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

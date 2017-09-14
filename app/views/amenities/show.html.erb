@@ -1,0 +1,17 @@
+<h2> <%= @amenity.name %> </h2>
+
+<%= @amenity.name %> </br>
+
+<%= @amenity.description %> </br>
+
+<%= link_to "List Amenities", amenities_path %> |
+
+<% if can? :create, @amenity %>
+	<%= link_to "Edit", edit_amenity_path(@amenity.id) %> |
+<% end %>
+
+<% if can? :destroy, @amenity %>
+	<%= link_to "Destroy", amenity_path(@amenity.id), method: :delete, data: {confirm: "Are you sure"} %>
+<% end %>
+
+

@@ -1,0 +1,28 @@
+<h2><%= @room.name %></h2>
+
+<%= @room.name %> </br>
+
+<%= @room.description %> </br>
+
+<%= @room.price %> </br>
+
+<%= @room.rules %> </br>
+
+<%= @room.address %> </br>
+
+<%= image_tag @room.images.url %> </br>
+
+<%= @room.latitude %> </br>
+
+<%= @room.longitude %> </br>
+
+<%= link_to "List Rooms", rooms_path %> |
+
+<% if can? :update, @room %>
+	<%= link_to "Edit", edit_room_path(@room.id) %> |
+<% end %>
+
+<% if can? :destroy, @room %>
+	<%= link_to "Destroy", room_path(@room.id), method: :delete, data: {confirm: "Are you sure"} %>
+<% end %>
+

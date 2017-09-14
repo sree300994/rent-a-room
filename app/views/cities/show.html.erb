@@ -1,0 +1,14 @@
+<h2><%= @city.name %></h2>
+
+<%= @city.name %> </br>
+
+<%= link_to "List Cities", cities_path %> 
+
+<% if can? :update, @city %>
+	<%= link_to "Edit", edit_city_path(@city.id) %> |
+<% end %>
+
+<% if can? :destroy, @city %>
+	<%= link_to "Destroy", city_path(@city.id), method: :delete, data: {confirm: "Are you sure"} %>
+<% end %>
+

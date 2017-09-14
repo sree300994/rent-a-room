@@ -1,0 +1,14 @@
+<h2>Listing Rooms</h2>
+
+<% @rooms.each do |room| %>
+	<li><%= room.name %>
+		<%= room.is_authorized %>
+		<%= form_for room do |f| %>
+			<%= f.check_box :is_authorized %>
+			<%= f.submit %>
+		<% end %>
+		<%= link_to "Show", room_path(room.id) %>
+	</li>
+<% end %>
+
+<!-- link_to "+ Service", new_my_service_path(:account_id => acct.id) -->

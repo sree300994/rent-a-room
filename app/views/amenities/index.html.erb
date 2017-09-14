@@ -1,0 +1,17 @@
+<h2> Listing Amenities </h2>
+<% if @amenities.empty? %>
+	<p> No Amenities found </p>
+<% else %>
+	<ul>
+		<% @amenities.each do |amenity| %>
+			<li> <%= amenity.name %>
+			<%= amenity.description %> |
+			<%= link_to "Show", amenity_path(amenity.id) %>
+			</li>
+		<% end %>
+	</ul>
+<% end %>
+<% if can? :create, Amenity.new %>
+	<%= link_to "Add Amenities", new_amenity_path %>
+<% end %>
+

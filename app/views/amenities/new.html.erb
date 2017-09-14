@@ -1,0 +1,25 @@
+<h2>Add Amenity</h2>
+
+<%= form_for @amenity do |f| %>
+	
+	<% if @amenity.errors.any? %>
+		<h3>These errors prohibitted the form from being saved :</h3>
+		<ul>
+			<% @amenity.errors.full_messages.each do |msg| %>
+				<li> <%= msg %> </li>
+			<% end %>
+		</ul>
+	<% end %>
+
+	<label> Name : </label> </br>
+	<%= f.text_field :name, autofocus: true %> </br>
+
+	<label> Description : </label> </br>
+	<%= f.text_area :description %> </br>
+
+	<%= f.submit %> or <%= link_to "Back", amenities_path %>
+<% end %>
+
+
+
+

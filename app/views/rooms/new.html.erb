@@ -1,0 +1,44 @@
+<h2> Add Room </h2>
+
+<%= form_for @room do |f| %>
+	<% if @room.errors.any? %>
+		<h3>These errors prohibitted the form from being saved : </h3>
+		<ul>
+			<% @room.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+			<% end %>
+		</ul>
+	<% end %>
+
+	<label> Name : </label> </br>
+	<%= f.text_field :name, autofocus: true %> </br>
+
+	<label> Description : </label> </br>
+	<%= f.text_area :description %> </br>
+
+	<label> Amenities : </label> </br>
+	<%= f.collection_check_boxes :amenity_ids, Amenity.all, :id, :name %> </br>
+
+	<label> Price : </label> </br>
+	<%= f.number_field :price %> </br>
+
+	<label> Rules : </label> </br>
+	<%= f.text_area :rules %> </br>
+
+	<label> Image : </label> </br>
+	<%= f.file_field :images %>
+	<% if f.object.images? %>
+		<%= image_tag f.object.images.url %>
+		<%= f.label :remove_images %>
+		<%= f.check_box :remove_images %>
+	<% end %> </br>
+
+	<label> Address : </label> </br>
+	<%= f.text_area :address %> </br>
+
+	<label> City : </label> </br>
+	<%= f.collection_select :city_id, City.all, :id, :name %> </br>
+
+
+	<%= f.submit %> or <%= link_to "Back", rooms_path %>
+<% end %>
