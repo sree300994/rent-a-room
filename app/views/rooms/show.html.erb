@@ -1,20 +1,33 @@
 <h2><%= @room.name %></h2>
 
-<%= @room.name %> </br>
+<p> Name : <%= @room.name %> </br> </p>
 
-<%= @room.description %> </br>
+<p> Description : <%= @room.description %> </br> </p>
 
-<%= @room.price %> </br>
+<p> Price : <%= @room.price %> </br> </p>
 
-<%= @room.rules %> </br>
+<p> Rules : <%= @room.rules %> </br> </p>
 
-<%= @room.address %> </br>
+<p> Address : <%= @room.address %> </br> </p>
 
-<%= image_tag @room.images.url %> </br>
+<p> Image : <%= image_tag @room.images.url %> </br> </p>
 
-<%= @room.latitude %> </br>
+<p> Latitude : <%= @room.latitude %> </br> </p>
 
-<%= @room.longitude %> </br>
+<p> Longtitude : <%= @room.longitude %> </br> </p>
+
+<% if user_signed_in? %>
+	<%= form_for @booking do |f| %>
+		<label>Start_Date : </label> </br>
+		<%= f.date_field :start_date %> </br>
+
+		<label>End_Date : </label> </br>
+		<%= f.date_field :end_date %> </br>
+
+		<%= f.hidden_field :room_id, value: @room.id %>
+		<%= f.submit %>
+	<% end %>
+<% end %>
 
 <%= link_to "List Rooms", rooms_path %> |
 

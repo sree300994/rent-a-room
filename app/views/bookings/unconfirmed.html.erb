@@ -1,0 +1,33 @@
+<h2>Listing Unconfirmed Rooms</h2>
+
+<% if @bookings.empty? %>
+	<p>No Bookings Found</p>
+<% else %>
+	<table>
+		<thead>
+			<tr>
+				<th>Room_Name</th>
+				<th>Start_Date</th>
+				<th>End_Date</th>
+				<th>Is_Confirmed</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @bookings.each do |booking| %>
+				<% if booking.room.user_id == current_user.id %>
+					<tr>
+						<td><%= booking.room.name %></td>
+						<td><%= booking.start_date%></td>
+						<td><%= booking.end_date %></td>
+						<td>
+							<%= form_for booking do |f| %>
+								<%= f.hidden_field :is_confirmed, value:true %>
+								<%= f.submit "Confirm" %>
+							<% end %>
+						</td>
+					</tr>
+				<% end %>
+			<% end %>
+		</tbody>
+	</table>
+<% end %>

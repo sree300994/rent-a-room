@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
 
   has_many :rooms
+  has_many :bookings
 	belongs_to :role
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -19,7 +20,7 @@ class User < ActiveRecord::Base
   end
 
   def save_as_guest
-    role = Role.find_by("name = ?", "guest")
+    role = Role.find_by("name = ?", "guest") # Role.find_by(name: "guest")
     self.role_id = role.id
   end
 

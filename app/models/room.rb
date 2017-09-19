@@ -4,11 +4,14 @@ class Room < ActiveRecord::Base
 	validates_presence_of :name, :description, :price, :rules, :address, :city_id
 	has_many :amenity_rooms
 	has_many :amenities, through: :amenity_rooms
+	has_many :bookings, dependent: :destroy
 	belongs_to :city
 	belongs_to :user
+	validates :description, length: { minimum: 150 } 
 
 	before_save :take_longitude_and_latitude_from_address
 	after_create :change_role
+	# before_destroy :delete_all_bookings
 
 	def take_longitude_and_latitude_from_address
 

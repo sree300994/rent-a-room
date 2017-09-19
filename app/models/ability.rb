@@ -22,12 +22,16 @@ class Ability
       user.role?("guest")
       can :read, :all
       can :create, Room
+      can :create, Booking
     elsif user.role?("host")
       can :read, :all
       can :create, Room
+      can :my_rooms, Room
+      can [:update, :unconfirmed], Booking
       can [:update, :destroy], Room do |room|
        room.user_id == user.id
       end
+      can :host, Booking
     elsif user.role?("admin")
       can :manage, :all
       # can [rooms], :admins

@@ -6,7 +6,7 @@
 	<ul>
 		<% @cities.each do |city| %>
 			<li>
-				<%= city.name %> |
+				<p> Name : <%= city.name %> </p> 
 				<%= link_to "Show", city_path(city.id) %>
 			</li>
 		<% end %>

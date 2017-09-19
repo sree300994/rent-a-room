@@ -1,8 +1,9 @@
-<h2>Listing Rooms</h2>
+<h2>Listing Unauthorized Rooms</h2>
 
 <% @rooms.each do |room| %>
-	<li><%= room.name %>
-		<%= room.is_authorized %>
+	<li>
+		<p> Name : <%= room.name %> </p>
+		<p> Is_Authorized : <%= room.is_authorized %> </p>
 		<%= form_for room do |f| %>
 			<%= f.check_box :is_authorized %>
 			<%= f.submit %>

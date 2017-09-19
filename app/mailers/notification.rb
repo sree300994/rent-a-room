@@ -5,9 +5,25 @@ class Notification < ApplicationMailer
   #
   #   en.notification.room_authorization.subject
   #
-  def room_authorization
-    @greeting = "Hi"
+  def room_authorization(rooms)
+    @room = rooms
 
-    mail to: "to@example.org"
+    mail to: "#{@room.user.email}", subject: "Room authorized"
+  end
+
+  def booking_created(booking)
+  	@booking = booking
+
+  	mail to: "#{@booking.user.email}", subject: "Booking created need to be confirmed by host"
+  end
+
+  def booking_confirmation(booking)
+  	@booking = booking
+  	mail to: "#{@booking.user.email}", subject: "Booking has been confirmed successfully"
+  end
+
+  def booking_status(booking)
+  	@booking = booking
+  	mail to: "#{@booking.room.user.email}", subject: "Booking has been created by the #{@booking.user.username}"
   end
 end

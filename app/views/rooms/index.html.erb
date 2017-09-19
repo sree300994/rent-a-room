@@ -7,16 +7,28 @@
 		<thead>
 			<tr>
 				<th>Name</th>
-				<th></th>
+				<th>Description</th>
+				<th>Address</th>
+				<th>Image</th>
+				<th>Amenities</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
 				<% @rooms.each do |room| %>
-						<td><%= room.name %></td>
+					<tr>
+						<td><%= link_to room.name, room_path(room.id) %></td>
+						<td><%= room.description %></td>
+						<td><%= room.address %></td>
+						<td><%= image_tag room.images.url %></td>
+						<td>
+							<%= room.amenities.count %>
+							<% room.amenities.each do |amenity| %>
+								<li><%= amenity.name %></li>
+							<% end %>
+						</td>
 						<td><p><%= link_to "show", room_path(room.id) %></p></td>
+					</tr>
 				<% end %>
-			</tr>
 		</tbody>
 	</table>
 <% end %>

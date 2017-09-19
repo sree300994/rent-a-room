@@ -1,8 +1,8 @@
 <h2><%= @city.name %></h2>
 
-<%= @city.name %> </br>
+<p> Name : <%= @city.name %> </br> </p>
 
-<%= link_to "List Cities", cities_path %> 
+<%= link_to "List Cities", cities_path %> |
 
 <% if can? :update, @city %>
 	<%= link_to "Edit", edit_city_path(@city.id) %> |

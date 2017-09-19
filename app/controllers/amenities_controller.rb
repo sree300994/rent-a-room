@@ -1,5 +1,6 @@
 class AmenitiesController < ApplicationController
 
+	before_action :set_amenity, except: [:index, :new]
 	before_action :authenticate_user!, except: [:index, :show]
 	load_and_authorize_resource
 
@@ -21,11 +22,11 @@ class AmenitiesController < ApplicationController
 	end
 
 	def edit
-		@amenity = Amenity.find(params[:id])
+		
 	end
 
 	def update
-		@amenity = Amenity.find(params[:id])
+		
 		if @amenity.update_attributes(amenity_params)
 			redirect_to amenity_path(@amenity.id), notice: "Successfully updated the amenity"
 		else
@@ -34,16 +35,20 @@ class AmenitiesController < ApplicationController
 	end
 
 	def show
-		@amenity = Amenity.find(params[:id])
+		
 	end
 
 	def destroy
-		@amenity = Amenity.find(params[:id])
+		
 		@amenity.destroy
 		redirect_to amenities_path, notice: "Successfully deleted the amenity"
 	end
 
 	private
+
+	def set_amenity
+		@amenity = Amenity.find(params[:id])
+	end
 
 	def amenity_params
 		params.require(:amenity).permit(:name, :description)
