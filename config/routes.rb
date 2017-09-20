@@ -11,7 +11,8 @@ Rails.application.routes.draw do
   get 'rooms/my_rooms'
   
   devise_for :users
-  
+
+  resources :special_prices  
   resources :rooms
   resources :cities
   resources :amenities

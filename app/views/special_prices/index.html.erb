@@ -1,0 +1,12 @@
+<h2>Listing Special Prices</h2>
+
+<% if @special_prices.empty? %>
+	<p>No Special Prices Found</p>
+<% else %>
+	<% @special_prices.each do |special_price| %>
+		<p>RoomName : <%= special_price.room.name %></p>
+		<p>Start_Date : <%= special_price.start_date %></p>
+		<p>End_Date : <%= special_price.end_date %></p>
+		<p>Price : <%= special_price.price %></p>
+	<% end %>
+<% end %>
