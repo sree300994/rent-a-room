@@ -25,6 +25,10 @@
 		<% if current_user.role?("guest") == true %>
 			|<%= link_to "Bookings", bookings_path%>
 		<% end %>
+
+		<% if current_user.role?("host") == true %>
+			|<%= link_to "Unconfirmed Bookings", bookings_unconfirmed_path %>
+		<% end %>
 	<% else %>
 	<%= link_to "Login", new_user_session_path %> | <%= link_to "Register", new_user_registration_path %>
 <% end %>
