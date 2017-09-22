@@ -18,11 +18,13 @@ class Ability
 
     if user.nil?
       can :read, :all
+      can :path_change, City
     elsif 
       user.role?("guest")
       can :read, :all
       can :create, Room
       can :create, Booking
+      can :path_change, City
     elsif user.role?("host")
       can :read, :all
       can :create, Room
@@ -32,6 +34,10 @@ class Ability
        room.user_id == user.id
       end
       can :host, Booking
+      can :manage, SpecialPrice do |special_price|
+        special_price.room.user_id == user.id
+      end
+      can :path_change, City
     elsif user.role?("admin")
       can :manage, :all
       # can [rooms], :admins

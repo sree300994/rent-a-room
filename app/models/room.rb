@@ -5,6 +5,8 @@ class Room < ActiveRecord::Base
 	has_many :amenity_rooms
 	has_many :amenities, through: :amenity_rooms
 	has_many :bookings, dependent: :destroy
+	has_many :special_prices
+	has_many :reviews
 	belongs_to :city
 	belongs_to :user
 	validates :description, length: { minimum: 150 } 

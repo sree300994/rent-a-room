@@ -1,14 +1,15 @@
 <h2> Add Room </h2>
 
+<% if @room.errors.any? %>
+	<h3>These errors prohibitted the form from being saved : </h3>
+	<ul>
+		<% @room.errors.full_messages.each do |msg| %>
+			<li><%= msg %></li>
+		<% end %>
+	</ul>
+<% end %>
+
 <%= form_for @room do |f| %>
-	<% if @room.errors.any? %>
-		<h3>These errors prohibitted the form from being saved : </h3>
-		<ul>
-			<% @room.errors.full_messages.each do |msg| %>
-				<li><%= msg %></li>
-			<% end %>
-		</ul>
-	<% end %>
 
 	<label> Name : </label> </br>
 	<%= f.text_field :name, autofocus: true %> </br>

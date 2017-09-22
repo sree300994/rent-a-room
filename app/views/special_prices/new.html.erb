@@ -1,0 +1,26 @@
+<h2>Add Special Price</h2>
+
+<% if @special_price.errors.any? %>
+	<p>These errors prohibitted form from being saved : </p>
+	<ul>
+		<% @special_price.errors.full_messages.each do |msg| %>
+			<li><%= msg %></li>
+		<% end %>
+	</ul>
+<% end %>
+
+<%= form_for @special_price, url: room_special_prices_path, method: :post do |f| %>
+
+	<label>Start_Date : </label> </br>
+	<%= f.date_field :start_date %> </br>
+
+	<label>End_Date : </label> </br>
+	<%= f.date_field :end_date %> </br>
+
+	<label>Price : </label> </br>
+	<%= f.text_field :price %> </br>
+
+	<%= f.submit %>
+<% end %>
+
+

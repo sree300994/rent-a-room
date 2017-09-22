@@ -29,10 +29,17 @@
 	<% end %>
 <% end %>
 
-<%= link_to "List Rooms", rooms_path %> |
+<%# binding.pry %>
+<%# if Date.today >= current_user.booking.end_date %>
+<%# end %>
+<% if @room.user_id == current_user.id %>
+	<%= link_to "Add Special Price", new_room_special_price_path(@room.id) %> |
+<% end %>
+
+<%= link_to "List Rooms", rooms_path %>
 
 <% if can? :update, @room %>
-	<%= link_to "Edit", edit_room_path(@room.id) %> |
+	|<%= link_to "Edit", edit_room_path(@room.id) %> |
 <% end %>
 
 <% if can? :destroy, @room %>

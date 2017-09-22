@@ -40,6 +40,7 @@ end
 
 def show
 	@booking = Booking.new
+	@special_price = SpecialPrice.new
 end
 
 def destroy

@@ -1,24 +1,32 @@
 class CitiesController < ApplicationController
 
-	before_action :set_city, except: [:index, :new]
-	before_action :authenticate_user!, except: [:index, :show]
+	before_action :set_city, only: [:edit, :show, :destroy, :update]
+	before_action :authenticate_user!, except: [:index, :show, :path_change]
 	load_and_authorize_resource
 
 	def index
+
 		@cities = City.all
-		if current_user.nil?
-			redirect_to rooms_path
-		elsif current_user.role?("admin")
-			redirect_to bookings_table_path
-		elsif current_user.role?("host")
-			redirect_to bookings_host_path
-		elsif current_user.role?("guest")
-			redirect_to rooms_path
-		end
 	end
 
 	def new
 		@city = City.new
+	end
+
+	def path_change
+
+		if current_user.nil?
+			puts "this"
+			redirect_to cities_path	
+		elsif current_user.role?("admin")
+			puts "this1"
+			redirect_to bookings_table_path
+		elsif current_user.role?("host")
+			puts "this2"
+			redirect_to bookings_host_path
+		else
+			redirect_to cities_path
+		end
 	end
 
 	def create

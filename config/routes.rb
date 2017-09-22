@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  get 'cities/path_change'
+  root 'cities#path_change'
   get 'dashboard/index'
   get 'bookings/unconfirmed'
 
@@ -12,8 +15,9 @@ Rails.application.routes.draw do
   
   devise_for :users
 
-  resources :special_prices  
-  resources :rooms
+  resources :rooms do
+  resources :special_prices
+end
   resources :cities
   resources :amenities
   resources :bookings
@@ -21,7 +25,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'cities#index'
+  
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
