@@ -1,0 +1,11 @@
+<div class="alert alert-danger">
+  	<% if @city.errors.any? %>
+		<h3>These errors are prohibitted the form from being saved : </h3>
+		<ul>
+			<% @city.errors.full_messages.each do |msg| %>
+				<li><%= msg  %></li>
+			<% end %>
+		</ul>
+	<% end %>
+</div>
+

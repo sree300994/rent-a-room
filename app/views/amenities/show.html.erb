@@ -4,6 +4,41 @@
 
 <p> Description : <%= @amenity.description %> </br> </p>
 
+<% if @amenity.rooms.empty? %>
+	<p>No Rooms Found</p>
+<% else %>
+	<h2>Listing Rooms</h2>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Description</th>
+				<th>Address</th>
+				<th>City</th>
+				<th>Image</th>
+				<th>Amenities</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @amenity.rooms.each do |room| %>
+				<tr>
+					<td><%= link_to room.name, room %></td>
+					<td><%= room.description %></td>
+					<td><%= room.address %></td>
+					<td><%= room.city.name %></td>
+					<td><%= image_tag room.images.url %></td>
+					<td>
+						<%= room.amenities.count %>
+						<% room.amenities.each do |amenity| %>
+							<li><%= amenity.name %></li>
+						<% end %>
+					</td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+<% end %>
+
 <%= link_to "List Amenities", amenities_path %> |
 
 <% if can? :create, @amenity %>

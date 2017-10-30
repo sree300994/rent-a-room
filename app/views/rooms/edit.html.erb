@@ -9,34 +9,60 @@
 			<% end %>
 		</ul>
 	<% end %>
-	<label> Name : </label> </br>
-	<%= f.text_field :name, autofocus: true %> </br>
 
-	<label> Description : </label> </br>
-	<%= f.text_area :description %> </br>
+	<div class="form-group">
+		<label> Name : </label> </br>
+		<%= f.text_field :name, autofocus: true, class: "form-control" %> </br>
+	</div>
 
-	<label> Amenities : </label> </br>
-	<%= f.collection_check_boxes :amenity_ids, Amenity.all, :id, :name %> </br>
+	<div class="form-group">
+		<label> Description : </label> </br>
+		<%= f.text_area :description, class: "form-control" %> </br>
+	</div>
 
-	<label> Price : </label> </br>
-	<%= f.number_field :price %> </br>
+	<div class="form-group">
+		<label> Amenities : </label> </br>
+		<%= f.collection_check_boxes :amenity_ids, Amenity.all, :id, :name, class: "form-control" %> </br>
+	</div>
 
-	<label> Rules : </label> </br>
-	<%= f.text_area :rules %> </br>
+	<div class="form-group">
+		<label> Price : </label> </br>
+		<%= f.number_field :price, class: "form-control" %> </br>
+	</div>
 
-	<label> Image : </label> </br>
-	<%= f.file_field :images %> 
-	<% if f.object.images? %>
-		<%= image_tag f.object.images.url %>
-		<%= f.label :remove_images %>
-		<%= f.check_box :remove_images %>
-	<% end %> </br>
+	<div class="form-group">
+		<label> Rules : </label> </br>
+		<%= f.text_area :rules, class: "form-control" %> </br>
+	</div>
 
-	<label> Address : </label> </br>
-	<%= f.text_area :address %> </br>
+	<div class="form-group">
+		<label> Image : </label> </br>
+		<%= f.file_field :images, class: "form-control" %> 
+		<% if f.object.images? %>
+			<%= image_tag f.object.images.url %>
+			<%= f.label :remove_images %>
+			<%= f.check_box :remove_images %>
+		<% end %> </br>
+	</div>
 
-	<label> City : </label> </br>
-	<%= f.collection_select :city_id, City.all, :id, :name %> </br>
+	<div class="form-group">
+		<label> Address : </label> </br>
+		<%= f.text_area :address, class: "form-control" %> </br>
+	</div>
+
+	<div class="form-group">
+		<label> City : </label> </br>
+		<%= f.collection_select :city_id, City.all, :id, :name, class: "form-control" %> </br>
+	</div>
 
 	<%= f.submit %> or <%= link_to "Back", rooms_path %>
 <% end %>
+
+<script>
+	$(document).ready(function(){
+		$('#room_city_id').chosen();
+	});
+</script>
+
+
+

@@ -12,8 +12,8 @@ class BookingsController < ApplicationController
 		@booking = Booking.new(booking_params)
 		@booking.user_id = current_user.id
 		if @booking.save
-			Notification.booking_created(@booking).deliver_now!
-			Notification.booking_status(@booking).deliver_now!
+			# Notification.booking_created(@booking).deliver_now!
+			# Notification.booking_status(@booking).deliver_now!
 			redirect_to bookings_path
 		else
 			redirect_to rooms_path, notice: "#{@booking.errors[:base]}"
@@ -23,7 +23,12 @@ class BookingsController < ApplicationController
 	def update
 		# binding.pry
 		if @booking.update_attributes(booking_params)
-			Notification.booking_confirmation(@booking).deliver_now!
+			# if @booking.is_confirmed == true || @booking.is_cancelled == true
+			# 	Notification.booking_confirmation(@booking).deliver_now!
+			# elsif @booking.is_cancelled == true
+			# 	Notification.booking_cancellation(@booking).deliver_now!
+			# 	redirect_to rooms_check_bookings_path
+			# end
 			redirect_to bookings_path, notice: "Successfully updated the booking"
 		else
 			redirect_to bookings_unconfirmed_path, notice: "You are unable to update the booking"
@@ -51,6 +56,6 @@ class BookingsController < ApplicationController
 	end
 
 	def booking_params
-		params.require(:booking).permit(:start_date, :end_date, :user_id, :room_id, :is_confirmed, :price)
+		params.require(:booking).permit(:start_date, :end_date, :user_id, :room_id, :is_confirmed, :price, :is_cancelled)
 	end
 end

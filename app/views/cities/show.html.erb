@@ -1,11 +1,45 @@
 <h2><%= @city.name %></h2>
 
 <p> Name : <%= @city.name %> </br> </p>
+<% if @city.rooms.empty? %>
+	<p>No Rooms Found</p>
+<% else %>
+	<h2>Listing Rooms</h2>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Description</th>
+				<th>Address</th>
+				<th>City</th>
+				<th>Image</th>
+				<th>Amenities</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @city.rooms.each do |room| %>
+				<tr>
+					<td><%= link_to room.name, room %></td>
+					<td><%= room.description %></td>
+					<td><%= room.address %></td>
+					<td><%= room.city.name %></td>
+					<td><%= image_tag room.images.url %></td>
+					<td>
+						<%= room.amenities.count %>
+						<% room.amenities.each do |amenity| %>
+							<li><%= amenity.name %></li>
+						<% end %>
+					</td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+<% end %>
 
-<%= link_to "List Cities", cities_path %> |
+<%= link_to "List Cities", cities_path %>
 
 <% if can? :update, @city %>
-	<%= link_to "Edit", edit_city_path(@city.id) %> |
+	| <%= link_to "Edit", edit_city_path(@city.id) %> |
 <% end %>
 
 <% if can? :destroy, @city %>

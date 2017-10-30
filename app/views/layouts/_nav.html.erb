@@ -1,0 +1,80 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Rent-A-Room</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+
+        <li class=<%= controller.controller_name == "amenities" ? "active" : "" %>>
+          <a href="/amenities">Amenities</a>
+        </li>
+
+        <li class=<%= controller.controller_name == "cities" ? "active" : "" %>>
+          <a href="/cities">Cities</a>
+        </li>
+
+        <li class=<%= controller.controller_name == "rooms" ? "active" : "" %>>
+          <a href="/rooms">Rooms</a>
+        </li>
+
+        <!-- <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <%# City.all.each do |city| %>
+              <li><%#= link_to city.name, city %></li>
+            <%# end %>
+          </ul>
+        </li> -->
+        <% if user_signed_in? %>
+          <li><%= link_to "Bookings", dashboard_index_path, class: "btn btn-secondary" %></li>
+          
+          <% if current_user.role?("host") == true %>
+            <li><%= link_to "My Rooms", rooms_my_rooms_path, class: "btn btn-secondary" %></li>
+            <li><%= link_to "Unconfirmed Bookings", bookings_unconfirmed_path, class: "btn btn-secondary" %></li>
+          <% end %>
+
+          <% if current_user.role?("admin") == true %>
+            <li><%= link_to "Unauthorized",rooms_mark_authorize_path, class: "btn btn-secondary" %></li>
+            <li><%= link_to "Users", dashboard_user_path, class: "btn btn-secondary" %></li>
+          <% end %>
+        <% end %>
+      </ul>
+      <!-- <form class="navbar-form navbar-left">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form> -->
+      <ul class="nav navbar-nav navbar-right">
+        <% if user_signed_in? %>
+          <li>
+            <%= link_to edit_user_registration_path, class: "btn btn-secondary" do %>
+              <i class="glyphicon glyphicon-user"></i> <span><%= current_user.username %></span>
+            <% end %>
+          </li>
+
+          <li>
+            <%= link_to "LogOut", destroy_user_session_path, method: :delete, class: "btn btn-secondary" %>
+          </li>
+        <% else %>
+          <li>
+            <%= link_to "Login", new_user_session_path, class: "btn btn-secondary" %>
+          </li>
+          <li>
+            <%= link_to "Register", new_user_registration_path, class: "btn btn-secondary" %>
+          </li>
+        <% end %>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>

@@ -1,0 +1,17 @@
+<h2>Listing Reviews(<%= @reviews.length %>)</h2>
+
+<% if @reviews.empty? %>
+	<p>No Reviews Found</p>
+<% else %>
+	<ul>
+		<% @reviews.each do |review| %>
+			<li>
+				<p><b> REVIEW : </b><%= review.review %> </p>
+				<p><b> Average Rating : </b><%= (review.food_rating + review.cleanliness_rating + review.safety_rating + review.facility_rating + review.locality_rating) / 5 %></p>
+				<% if review.user_id == current_user.id %>
+					<%= link_to "Destroy", review_path(review), method: :delete %>
+				<% end %>
+			</li>
+		<% end %>
+	</ul>
+<% end %>

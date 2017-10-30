@@ -6,7 +6,7 @@
 		<p> Is_Authorized : <%= room.is_authorized %> </p>
 		<%= form_for room do |f| %>
 			<%= f.check_box :is_authorized %>
-			<%= f.submit %>
+			<%= f.submit "Authorize Room" %>
 		<% end %>
 		<%= link_to "Show", room_path(room.id) %>
 	</li>

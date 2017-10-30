@@ -1,0 +1,8 @@
+
+<%= form_for(@city, remote: true) do |f| %>
+
+	<label> Name : </label> </br>
+	<%= f.text_field :name, autofocus: true %> </br>
+
+	<%= f.submit %> or <%= link_to "Back", cities_path %>
+<% end %>

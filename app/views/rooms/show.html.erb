@@ -1,39 +1,88 @@
+<% if @review.errors.any? %>
+	<p>These are the errors prohibitted the Review from being saved: </p>
+	<ul>
+		<% @review.errors.full_messages.each do |msg| %>
+			<li><%= msg %></li>
+		<% end %>
+	</ul>
+<% end %>
 <h2><%= @room.name %></h2>
 
-<p> Name : <%= @room.name %> </br> </p>
+<p><b> Name : </b><%= @room.name %> <br/> </p>
 
-<p> Description : <%= @room.description %> </br> </p>
+<p><b> Description : </b><%= @room.description %> <br/> </p>
 
-<p> Price : <%= @room.price %> </br> </p>
+<p><b> Price : </b><%= @room.price %> <br/> </p>
 
-<p> Rules : <%= @room.rules %> </br> </p>
+<p><b> Rules : </b><%= @room.rules %> <br/> </p>
 
-<p> Address : <%= @room.address %> </br> </p>
+<p><b> Address : </b><%= @room.address %> <br/> </p>
 
-<p> Image : <%= image_tag @room.images.url %> </br> </p>
+<p><b> Image : </b><%= image_tag @room.images.url %> <br/> </p>
 
-<p> Latitude : <%= @room.latitude %> </br> </p>
+<p><b> Latitude : </b><%= @room.latitude %> <br/> </p>
 
-<p> Longtitude : <%= @room.longitude %> </br> </p>
+<p><b> Longtitude : </b><%= @room.longitude %> <br/> </p>
 
-<% if user_signed_in? %>
-	<%= form_for @booking do |f| %>
-		<label>Start_Date : </label> </br>
-		<%= f.date_field :start_date %> </br>
+<p><b> Created By : </b><%= @room.user.username %> <br/></p>
 
-		<label>End_Date : </label> </br>
-		<%= f.date_field :end_date %> </br>
+<h2>Listing Reviews(<%= @room.reviews.length %>)</h2>
+<% if @room.reviews.empty? %>
+	<b>No Reviews Found</b>
+<% else %>
+	<ul>
+		<% @room.reviews.each do |review| %>
+			<li>
+				<p><b> REVIEW : </b><%= review.review %> </p>
+				<p><b> Average Rating : </b><%= (review.food_rating + review.cleanliness_rating + review.safety_rating + review.facility_rating + review.locality_rating) / 5 %></p>
+				<% if user_signed_in? %>
+					<% if can? :destroy, review %>
+						<%= link_to "Destroy", review_path(review), method: :delete %>
+					<% end %>
+				<% end %>
+			</li>
+		<% end %>
+	</ul>
+<% end %>
 
-		<%= f.hidden_field :room_id, value: @room.id %>
-		<%= f.submit %>
+<% if user_signed_in? && current_user.bookings.any? %>
+	<% @room.bookings.each do |booking| %>
+	<%# binding.pry %>
+		<% if Date.today >= booking.end_date %>
+			<h2>Add Review</h2>
+			<%= form_for @review do |f| %>
+				<label><b>Review  : </b></label> <br/>
+				<%= f.text_area :review, autofocus: true %> <br/>
+
+				<label><b>Food Rating : </b></label> <br/>
+				<%= f.collection_radio_buttons :food_rating, (1..5).map{|n| [n, n]}, :first, :last %> <br/>
+
+				<label><b>Cleanliness Rating : </b></label> <br/>
+				<%= f.collection_radio_buttons :cleanliness_rating, (1..5).map{|n| [n, n]}, :first, :last %> <br/>
+
+				<label><b>Safety Rating : </b></label> <br/>
+				<%= f.collection_radio_buttons :safety_rating, (1..5).map{|n| [n, n]}, :first, :last %> <br/>
+
+				<label><b>Facility Rating : </b></label> <br/>
+				<%= f.collection_radio_buttons :facility_rating, (1..5).map{|n| [n, n]}, :first, :last %> <br/>
+
+				<label><b>Locality Rating : </b></label> <br/>
+				<%= f.collection_radio_buttons :locality_rating, (1..5).map{|n| [n, n]}, :first, :last %> <br/>
+
+				<%= f.hidden_field :room_id, value: @room.id %>
+				<%= f.submit %>
+			<% end %>
+		<% end %>
 	<% end %>
 <% end %>
 
-<%# binding.pry %>
-<%# if Date.today >= current_user.booking.end_date %>
-<%# end %>
-<% if @room.user_id == current_user.id %>
-	<%= link_to "Add Special Price", new_room_special_price_path(@room.id) %> |
+<% if user_signed_in? %>
+	<h2>Add Booking</h2>
+	<%= render '/bookings/form' %>
+
+	<% if @room.user_id == current_user.id %>
+		<%= link_to "Add Special Price", new_room_special_price_path(@room.id) %> |
+	<% end %>
 <% end %>
 
 <%= link_to "List Rooms", rooms_path %>
@@ -43,6 +92,14 @@
 <% end %>
 
 <% if can? :destroy, @room %>
-	<%= link_to "Destroy", room_path(@room.id), method: :delete, data: {confirm: "Are you sure"} %>
+	<%= link_to "Destroy", rooms_check_bookings_path(@room.id) %>
 <% end %>
+
+
+
+
+
+
+
+
 

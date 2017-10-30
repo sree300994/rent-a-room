@@ -1,0 +1,35 @@
+<%# @users.each do |user| %>
+	<%#= user.username %>
+<%# end %>
+<table class="table">
+	<thead>
+		<tr>
+			<th>Sl No.</th>
+			<th>Name</th>
+			<th>Role</th>
+			<th>Names/No. Of Rooms Owned</th>
+			<th>No. Of Rooms Booked</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @users.each_with_index do |user, index| %>
+			<tr>
+				<td><%= index + 1 %></td>
+				<td><%= user.username %></td>
+				<td><%= user.role.name %></td>
+				<td>
+					<% user.rooms.each do |room| %>
+						Room Name : <%= room.name %> <br/>
+					<% end %>
+					Count : <%= user.rooms.count %>		
+				</td>
+				<td>
+					<% user.bookings.each do |booking| %>
+						Room Name : <%= booking.room.name %> <br/>
+					<% end %>
+					Count : <%= user.bookings.count %>
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

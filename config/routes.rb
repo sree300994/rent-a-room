@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'rooms/check_bookings'
+  get 'dashboard/user'
   get 'cities/path_change'
   root 'cities#path_change'
   get 'dashboard/index'
@@ -21,6 +23,7 @@ end
   resources :cities
   resources :amenities
   resources :bookings
+  resources :reviews
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

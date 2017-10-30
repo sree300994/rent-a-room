@@ -1,50 +1,111 @@
 <h2>Sign up</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  
   <%= devise_error_messages! %>
 
-
-  <div class="field">
+  <div class="form-group">
     <%= f.label :first_name %><br />
-    <%= f.text_field :first_name, autofocus: true %>
+    <%= f.text_field :first_name, autofocus: true, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :last_name %><br />
-    <%= f.text_field :last_name %>
+    <%= f.text_field :last_name, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :username %><br />
-    <%= f.text_field :username %>
+    <%= f.text_field :username, class: "form-control" %>
+    <!-- <span id="usernameError"></span> -->
   </div>
   
-  <div class="field">
+  <div class="form-group">
     <%= f.label :email %><br />
-    <%= f.email_field :email %>
+    <%= f.email_field :email, class: "form-control" %>
+    <!-- <span id="emailError"></span> -->
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :mobile %><br />
-    <%= f.text_field :mobile %>
+    <%= f.text_field :mobile, class: "form-control" %>
+    <!-- <span id="mobileError"></span> -->
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :password %>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
+    <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+    <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
   </div>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
+  <div class="actions" id="submit">
+    <%= f.submit "Sign up", class: "btn btn-secondary" %>
   </div>
 <% end %>
 
-<%= render "devise/shared/links" %>
+<!-- <script>
+  var alphabetFormatter = /^[A-Za-z]+$/;
+  var emailFormatter = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+  var mobileFormatter = /^[0-9]+$/;
+
+  var usernameHandle = document.getElementById('user_username');
+  var emailHandle = document.getElementById('user_email');
+  var mobileHandle = document.getElementById('user_mobile');
+
+  var usernameErrorHandle = document.getElementById('usernameError');
+  var emailErrorHandle = document.getElementById('emailError');
+  var mobileErrorHandle = document.getElementById('mobileError');
+  var submitHandle = document.getElementById('submit');
+  
+  validate = {
+    "username": false,
+    "email": false,
+    "mobile": false
+  }
+
+  submitHandle.addEventListener('click', function(e){
+    if (validate.username || validate.email || validate.mobile) {
+      return true
+    } else {
+      e.preventDefault();
+    }
+    if (usernameHandle.value == "") {
+      usernameErrorHandle.innerHTML = "Can't be blank";
+      validate.username = false;
+    } else if (!alphabetFormatter.test(usernameHandle.value)) {
+      usernameErrorHandle.innerHTML = "Should be a valid format";
+      validate.username = false;
+    }else {
+      validate.username = true;
+    }
+
+    if (emailHandle.value == "") {
+      emailErrorHandle.innerHTML = "Can't be blank";
+      validate.email = false;
+    } else if (!emailFormatter.test(emailHandle.value)) {
+      emailErrorHandle.innerHTML = "Should be a valid format";
+      validate.email = false;
+    }else {
+      validate.email = true;
+    }
+
+    if (mobileHandle.value == "") {
+      mobileErrorHandle.innerHTML = "Can't be blank";
+      validate.mobile = false;
+    }else if (!mobileFormatter.test(mobileHandle.value)) {
+      mobileErrorHandle.innerHTML = "Should be a valid format";
+      validate.mobile = false;
+    }else {
+      validate.mobile = true;
+    }
+  }, false);
+</script> -->
+
+<%#= render "devise/shared/links" %>

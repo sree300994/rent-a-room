@@ -3,37 +3,38 @@
 <% if @rooms.empty? %>
 	<p> No Rooms Found </p>
 <% else %>
-	<table border="1">
+	<table class="table">
 		<thead>
 			<tr>
 				<th>Name</th>
 				<th>Description</th>
 				<th>Address</th>
+				<th>City</th>
 				<th>Image</th>
 				<th>Amenities</th>
 			</tr>
 		</thead>
 		<tbody>
-				<% @rooms.each do |room| %>
-					<tr>
-						<td><%= link_to room.name, room_path(room.id) %></td>
-						<td><%= room.description %></td>
-						<td><%= room.address %></td>
-						<td><%= image_tag room.images.url %></td>
-						<td>
-							<%= room.amenities.count %>
-							<% room.amenities.each do |amenity| %>
-								<li><%= amenity.name %></li>
-							<% end %>
-						</td>
-						<td><p><%= link_to "show", room_path(room.id) %></p></td>
-					</tr>
-				<% end %>
+			<% @rooms.each do |room| %>
+				<tr>
+					<td><%= link_to room.name, room_path(room.id) %></td>
+					<td><%= room.description %></td>
+					<td><%= room.address %></td>
+					<td><%= room.city.name %></td>
+					<td><%= image_tag room.images.url %></td>
+					<td>
+						<%= room.amenities.count %>
+						<% room.amenities.each do |amenity| %>
+							<li><%= amenity.name %></li>
+						<% end %>
+					</td>
+				</tr>
+			<% end %>
 		</tbody>
 	</table>
 <% end %>
 
-<%= will_paginate @rooms %>
+<%= will_paginate @rooms %> <br/>
 
 <% if can? :create, Room.new %>
 	<%= link_to "Add Room", new_room_path %>

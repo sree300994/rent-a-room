@@ -3,19 +3,24 @@
 <% if @cities.empty? %>
 	<p> No Cities Found </p>
 <% else %>
-	<ul>
-		<% @cities.each do |city| %>
-			<li>
-				<p> Name : <%= city.name %> </p> 
-				<%= link_to "Show", city_path(city.id) %>
-			</li>
-			<hr>
-		<% end %>
-	</ul>
+	<div id="cityList">
+		<ul>
+			<% @cities.each do |city| %>
+				<li>
+					<p> Name : <%= city.name %> </p> 
+					<%= link_to "Show", city_path(city.id) %>
+				</li>
+				<hr>
+			<% end %>
+		</ul>
+	</div>
 <% end %>
 
+<div id="errorMsg"></div>
 <% if can? :create, City.new %>
-	<%= link_to "Add City", new_city_path %>
+	<%#= link_to "Add City", new_city_path %>
+	<%= render 'form' %>
 <% end %>
+
 
 

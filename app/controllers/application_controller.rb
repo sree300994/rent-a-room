@@ -5,11 +5,9 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
   
-  rescue_from CanCan::AccessDenied do |exception|
-      respond_to do |format|
-        format.html { redirect_to rooms_path, notice: exception.message }
-      end
-    end
+  rescue_from CanCan::AccessDenied do 
+    redirect_to root_path, notice: "page not found"
+  end
 
   protected
 
@@ -17,3 +15,4 @@ class ApplicationController < ActionController::Base
   	devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :email, :last_name, :username, :mobile, :role_id])
   end
 end
+

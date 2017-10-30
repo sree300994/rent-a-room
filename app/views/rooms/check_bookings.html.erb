@@ -1,0 +1,11 @@
+<h2>Listing Bookings</h2>
+
+<% @bookings.each do |booking| %>
+<% binding.pry %>
+	<%= booking.start_date %>
+	<%= form_for booking do |f| %>
+		<%= f.hidden_field :is_cancelled, value:true %>
+		<%= f.submit "Notify Guest" %>
+	<% end %>
+	<%= link_to "Destroy", room_path(booking.room.id), method: :delete, data: {confirm: "Are you sure"} %>
+<% end %>

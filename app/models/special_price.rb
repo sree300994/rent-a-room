@@ -7,7 +7,7 @@ class SpecialPrice < ActiveRecord::Base
 
 	def check_date
 		if self.start_date < Date.today || self.end_date < self.start_date
-			self.errors.add(base: "The date you are trying to add should be equal or greater than today")
+			self.errors.add(:base, "The date you are trying to add should be equal or greater than Start Date")
 		end
 	end
 end

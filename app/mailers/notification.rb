@@ -26,4 +26,9 @@ class Notification < ApplicationMailer
   	@booking = booking
   	mail to: "#{@booking.room.user.email}", subject: "Booking has been created by the #{@booking.user.username}"
   end
+
+  def booking_cancellation(booking)
+    @booking = booking
+    mail to: "#{@booking.room.user.email}", subject: "Booking has been cancelled by the #{@booking.user.username}"
+  end
 end

@@ -25,6 +25,10 @@ class Ability
       can :create, Room
       can :create, Booking
       can :path_change, City
+      can :create, Review
+      can :destroy, Review do |review|
+        review.user_id == user.id
+      end
     elsif user.role?("host")
       can :read, :all
       can :create, Room
@@ -34,10 +38,10 @@ class Ability
        room.user_id == user.id
       end
       can :host, Booking
-      can :manage, SpecialPrice do |special_price|
-        special_price.room.user_id == user.id
-      end
+      can :create, [SpecialPrice], :room => { :user_id => user.id }
       can :path_change, City
+      can :destroy, [Review], :room => { :user_id => user.id }
+      can :check_bookings, Room
     elsif user.role?("admin")
       can :manage, :all
       # can [rooms], :admins
