@@ -18,8 +18,8 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :rooms do
-  resources :special_prices
-end
+    resources :special_prices
+  end
   resources :cities
   resources :amenities
   resources :bookings

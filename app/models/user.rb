@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   validates_presence_of :first_name, :last_name, :username, :mobile
+  validates_uniqueness_of :username, :mobile, :email
 
   before_create :save_as_guest
 

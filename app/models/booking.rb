@@ -33,7 +33,6 @@ class Booking < ActiveRecord::Base
 	end
 
 	def total
-		# binding.pry
 		if room.special_prices.any?
 			intial_date = self.start_date
 			final_date = self.end_date

@@ -33,12 +33,12 @@ class Ability
       can :read, :all
       can :create, Room
       can :my_rooms, Room
-      can [:update, :unconfirmed], Booking
+      can [:create, :update, :unconfirmed], Booking
       can [:update, :destroy], Room do |room|
        room.user_id == user.id
       end
       can :host, Booking
-      can :create, [SpecialPrice], :room => { :user_id => user.id }
+      can :create, SpecialPrice
       can :path_change, City
       can :destroy, [Review], :room => { :user_id => user.id }
       can :check_bookings, Room

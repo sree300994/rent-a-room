@@ -1,6 +1,6 @@
 class BookingsController < ApplicationController
 
-	before_action :set_booking, only: [:update]
+	before_action :set_booking, only: [:update, :show]
 	before_action :authenticate_user!
 	load_and_authorize_resource
 
@@ -14,16 +14,20 @@ class BookingsController < ApplicationController
 		if @booking.save
 			# Notification.booking_created(@booking).deliver_now!
 			# Notification.booking_status(@booking).deliver_now!
-			redirect_to bookings_path
+			redirect_to @booking
 		else
 			redirect_to rooms_path, notice: "#{@booking.errors[:base]}"
 		end
 	end
 
+	def show
+		
+	end
+
 	def update
 		# binding.pry
 		if @booking.update_attributes(booking_params)
-			# if @booking.is_confirmed == true || @booking.is_cancelled == true
+			# if @booking.is_confirmed == true && @booking.is_cancelled == true
 			# 	Notification.booking_confirmation(@booking).deliver_now!
 			# elsif @booking.is_cancelled == true
 			# 	Notification.booking_cancellation(@booking).deliver_now!
@@ -40,7 +44,8 @@ class BookingsController < ApplicationController
 	end
 
 	def host
-		@bookings = Booking.all
+		# binding.pry
+		@rooms = Room.where("user_id = ?", current_user.id)
 	end
 
 	def unconfirmed

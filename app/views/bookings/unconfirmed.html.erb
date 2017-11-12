@@ -1,8 +1,7 @@
-<h2>Listing Unconfirmed Booked Rooms</h2>
-
 <% if @bookings.empty? %>
-	<p>No Bookings Found</p>
+	<p>No  Unconfirmed Bookings Found</p>
 <% else %>
+<h2>Listing Unconfirmed Booked Rooms</h2>
 	<table class="table">
 		<thead>
 			<tr>
@@ -22,7 +21,7 @@
 						<td>
 							<%= form_for booking do |f| %>
 								<%= f.hidden_field :is_confirmed, value:true %>
-								<%= f.submit "Confirm" %>
+								<%= f.submit "Confirm", class: "btn btn-secondary" %>
 							<% end %>
 						</td>
 					</tr>
@@ -31,3 +30,4 @@
 		</tbody>
 	</table>
 <% end %>
+<%= link_to "Back", root_path %>

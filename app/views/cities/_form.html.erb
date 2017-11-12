@@ -1,8 +1,10 @@
 
 <%= form_for(@city, remote: true) do |f| %>
+	
+	<div class="form-group">
+		<label> Name : </label> </br>
+		<%= f.text_field :name, autofocus: true, class: "form-control" %> </br>	
+	</div>
 
-	<label> Name : </label> </br>
-	<%= f.text_field :name, autofocus: true %> </br>
-
-	<%= f.submit %> or <%= link_to "Back", cities_path %>
+	<%= f.submit "Create City", class: "btn btn-secondary" %> or <%= link_to "Back", cities_path %>
 <% end %>

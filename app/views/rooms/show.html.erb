@@ -1,104 +1,264 @@
-<% if @review.errors.any? %>
-	<p>These are the errors prohibitted the Review from being saved: </p>
-	<ul>
-		<% @review.errors.full_messages.each do |msg| %>
-			<li><%= msg %></li>
-		<% end %>
-	</ul>
-<% end %>
-<h2><%= @room.name %></h2>
-
-<p><b> Name : </b><%= @room.name %> <br/> </p>
-
-<p><b> Description : </b><%= @room.description %> <br/> </p>
-
-<p><b> Price : </b><%= @room.price %> <br/> </p>
-
-<p><b> Rules : </b><%= @room.rules %> <br/> </p>
-
-<p><b> Address : </b><%= @room.address %> <br/> </p>
-
-<p><b> Image : </b><%= image_tag @room.images.url %> <br/> </p>
-
-<p><b> Latitude : </b><%= @room.latitude %> <br/> </p>
-
-<p><b> Longtitude : </b><%= @room.longitude %> <br/> </p>
-
-<p><b> Created By : </b><%= @room.user.username %> <br/></p>
-
-<h2>Listing Reviews(<%= @room.reviews.length %>)</h2>
-<% if @room.reviews.empty? %>
-	<b>No Reviews Found</b>
-<% else %>
-	<ul>
-		<% @room.reviews.each do |review| %>
-			<li>
-				<p><b> REVIEW : </b><%= review.review %> </p>
-				<p><b> Average Rating : </b><%= (review.food_rating + review.cleanliness_rating + review.safety_rating + review.facility_rating + review.locality_rating) / 5 %></p>
-				<% if user_signed_in? %>
-					<% if can? :destroy, review %>
-						<%= link_to "Destroy", review_path(review), method: :delete %>
-					<% end %>
+<div class="row">
+	<div class="col-md-7">
+		<div class="page-header">
+			<h2><%= @room.name %></h2>
+		</div>
+		<% if @review.errors.any? %>
+			<p>These are the errors prohibitted the Review from being saved: </p>
+			<ul>
+				<% @review.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
 				<% end %>
-			</li>
+			</ul>
 		<% end %>
-	</ul>
-<% end %>
 
-<% if user_signed_in? && current_user.bookings.any? %>
-	<% @room.bookings.each do |booking| %>
-	<%# binding.pry %>
-		<% if Date.today >= booking.end_date %>
-			<h2>Add Review</h2>
-			<%= form_for @review do |f| %>
-				<label><b>Review  : </b></label> <br/>
-				<%= f.text_area :review, autofocus: true %> <br/>
+		<p><b> Name : </b><%= @room.name %> <br/> </p>
 
-				<label><b>Food Rating : </b></label> <br/>
-				<%= f.collection_radio_buttons :food_rating, (1..5).map{|n| [n, n]}, :first, :last %> <br/>
+		<p><b> Description : </b><%= @room.description %> <br/> </p>
 
-				<label><b>Cleanliness Rating : </b></label> <br/>
-				<%= f.collection_radio_buttons :cleanliness_rating, (1..5).map{|n| [n, n]}, :first, :last %> <br/>
+		<p><b> Price : </b><%= @room.price %> <br/> </p>
 
-				<label><b>Safety Rating : </b></label> <br/>
-				<%= f.collection_radio_buttons :safety_rating, (1..5).map{|n| [n, n]}, :first, :last %> <br/>
+		<p><b> Rules : </b><%= @room.rules %> <br/> </p>
 
-				<label><b>Facility Rating : </b></label> <br/>
-				<%= f.collection_radio_buttons :facility_rating, (1..5).map{|n| [n, n]}, :first, :last %> <br/>
+		<p><b> Address : </b><%= @room.address %> <br/> </p>
 
-				<label><b>Locality Rating : </b></label> <br/>
-				<%= f.collection_radio_buttons :locality_rating, (1..5).map{|n| [n, n]}, :first, :last %> <br/>
+		<p><b> Image : </b><%= image_tag @room.images.url %> <br/> </p>
 
-				<%= f.hidden_field :room_id, value: @room.id %>
-				<%= f.submit %>
+		<p><b> Latitude : </b><%= @room.latitude %> <br/> </p>
+
+		<p><b> Longtitude : </b><%= @room.longitude %> <br/> </p>
+
+		<p><b> Created By : </b><%= @room.user.username %> <br/></p>
+
+		<p><b> Contact : </b><%= @room.user.mobile %> <br/></p>
+
+		<h2>Listing Reviews(<%= @room.reviews.length %>)</h2>
+		<% if @room.reviews.empty? %>
+			<b>No Reviews Found</b><br/>
+		<% else %>
+			<ul>
+				<% @room.reviews.each do |review| %>
+					<li>
+						<p><b> REVIEW : </b><%= review.review %> </p>
+						<p><b> Average Rating : </b><%= (review.food_rating + review.cleanliness_rating + review.safety_rating + review.facility_rating + review.locality_rating) / 5 %></p>
+						<% if user_signed_in? %>
+							<% if can? :destroy, review %>
+								<%= link_to "Destroy", review_path(review), method: :delete %>
+							<% end %>
+						<% end %>
+					</li>
+				<% end %>
+			</ul>
+		<% end %>
+
+		<% if user_signed_in? %>
+		 	<% if @room.user_id == current_user.id || current_user.role.name == "admin" %>
+				<h2>Listing Bookings</h2>
+
+				<% if @room.bookings.empty? %>
+					<p> No Bookings Found </p>
+				<% else %>
+					<ul>
+						<% @room.bookings.each do |booking| %>
+							<li>
+								<p> User : <%= booking.user.username %> </p>
+								<p> Start_Date : <%= booking.start_date %> </p>
+								<p> End_Date : <%= booking.end_date %></p>
+								<p> Is_Confirmed : <%= booking.is_confirmed %></p>
+								<%= link_to "Show", booking %>
+							</li>
+						<% end %>
+					</ul>
+				<% end %>
 			<% end %>
 		<% end %>
-	<% end %>
-<% end %>
-
-<% if user_signed_in? %>
-	<h2>Add Booking</h2>
-	<%= render '/bookings/form' %>
-
-	<% if @room.user_id == current_user.id %>
-		<%= link_to "Add Special Price", new_room_special_price_path(@room.id) %> |
-	<% end %>
-<% end %>
-
-<%= link_to "List Rooms", rooms_path %>
-
-<% if can? :update, @room %>
-	|<%= link_to "Edit", edit_room_path(@room.id) %> |
-<% end %>
-
-<% if can? :destroy, @room %>
-	<%= link_to "Destroy", rooms_check_bookings_path(@room.id) %>
-<% end %>
 
 
+		<% if user_signed_in? && current_user.bookings.any? %>
+			<% @room.bookings.each do |booking| %>
+			<%# binding.pry %>
+				<% if Date.today >= booking.end_date %>
+					<h2>Add Review</h2>
+					<%= form_for @review do |f| %>
+						<label><b>Review  : </b></label> <br/>
+						<%= f.text_area :review, autofocus: true %> <br/>
+
+						<label><b>Food Rating : </b></label> <br/>
+						<%= f.collection_radio_buttons :food_rating, (1..5).map{|n| [n, n]}, :first, :last %> <br/>
+
+						<label><b>Cleanliness Rating : </b></label> <br/>
+						<%= f.collection_radio_buttons :cleanliness_rating, (1..5).map{|n| [n, n]}, :first, :last %> <br/>
+
+						<label><b>Safety Rating : </b></label> <br/>
+						<%= f.collection_radio_buttons :safety_rating, (1..5).map{|n| [n, n]}, :first, :last %> <br/>
+
+						<label><b>Facility Rating : </b></label> <br/>
+						<%= f.collection_radio_buttons :facility_rating, (1..5).map{|n| [n, n]}, :first, :last %> <br/>
+
+						<label><b>Locality Rating : </b></label> <br/>
+						<%= f.collection_radio_buttons :locality_rating, (1..5).map{|n| [n, n]}, :first, :last %> <br/>
+
+						<%= f.hidden_field :room_id, value: @room.id %>
+						<%= f.submit %>
+					<% end %>
+				<% end %>
+			<% end %>
+		<% end %>
+
+		<% if @room.special_prices.any? %>
+			<h2>Listing Special Prices</h2>
+			<% @room.special_prices.each do |special_price| %>
+				<p><b> Start Date : </b><%= special_price.start_date %></p>
+				<p><b> End Date : </b><%= special_price.end_date %></p>
+				<p><b> Price : </b><%= special_price.price %></p>
+			<% end %>
+		<% end %>
+
+		<h2>Add Booking</h2>
+		<%= form_for @booking do |f| %>
+			<label><b>Start Date : </b></label> </br>
+			<%= f.text_field :start_date %> </br>
+
+			<label><b>End Date : </b></label> </br>
+			<%= f.text_field :end_date %> </br>
+			<span id="costMsg"></span> <br />
+
+			<%= f.hidden_field :room_id, value: @room.id %>
+			<%= f.submit %>
+		<% end %>
+
+		<% if user_signed_in? %>
+			<% if @room.user_id == current_user.id %>
+				<%= link_to "Add Special Price", new_room_special_price_path(@room.id) %> |
+			<% end %>
+		<% end %>
+
+		<%= link_to "List Rooms", rooms_path %>
+
+		<% if can? :update, @room %>
+			|<%= link_to "Edit", edit_room_path(@room.id) %> |
+		<% end %>
+
+		<% if can? :destroy, @room %>
+			<%= link_to "Destroy", rooms_check_bookings_path(@room.id) %>
+		<% end %>
+	</div>
+	<div class="col-md-5">
+		<div class="page-header">
+			<h2>Google Map Route</h2>
+		</div>
+		<iframe
+		  width="450"
+		  height="450"
+		  frameborder="0" style="border:0"
+		  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAVop-Wj9ivBsW0ghXziYrHpj_c0kIkov8&q=<%= @room.latitude %>,<%= @room.longitude %>" allowfullscreen>
+		</iframe>
+	</div>
+</div>
+<!-- AIzaSyAVop-Wj9ivBsW0ghXziYrHpj_c0kIkov8 -->
+
+<script>
+  $(document).ready(function(){
+    var startDateHandle = document.getElementById('startDate');
+    var endDateHandle = document.getElementById('endDate');
+
+    var disabledDates = <%= raw Booking.all.pluck(:start_date, :end_date).map{|dates| (dates[0]..dates[1]).to_a}.flatten.uniq.map{|date| date.strftime("%d-%m-%Y")} %> 
+
+    function DisableSpecificDates(date) {
+      	var string = jQuery.datepicker.formatDate('dd-mm-yy', date);
+    	return [disabledDates.indexOf(string) == -1];
+  	}
+
+    $('#booking_start_date').datepicker({
+      	beforeShowDay: DisableSpecificDates,
+      	dateFormat: 'yy-mm-dd', 
+      	numberOfMonths: 2, 
+      	minDate: 0
+    });
+
+    function setEndDate(startingDate){
+      	$('#booking_end_date').datepicker({
+        	beforeShowDay: DisableSpecificDates,
+        	minDate: startingDate,
+        	dateFormat: 'yy-mm-dd', 
+        	numberOfMonths: 2
+      	});
+    }
+
+    $('#booking_start_date').on('change', function(){
+      var startingDate = new Date($('#booking_start_date').val());
+      $('#booking_end_date').datepicker("destroy");
+      setEndDate(startingDate);
+      setTimeout(function(){
+        $('#booking_end_date').focus()
+      }, 0);
+    });
+
+    $('#booking_end_date').on('change',function(){
+    	// if (@room.special_prices.any?) {
+    	// 	// initial_date
+
+    	// } else {
+			initial = new Date($('#booking_start_date').val());
+			final = new Date($('#booking_end_date').val());
+			booking = (final - initial)/1000;
+			<%# binding.pry %>
+			cost = (((booking / 86400) + 1) * <%= @room.price %>)
+			$('#costMsg').html("$"+cost);
+    	// }
+	});
+
+    // $('#booking_end_date').on('change', function(){
+    //   initial = new Date($('#booking_start_date').val());
+    //   final = new Date($('#booking_end_date').val());
+    //   <%# binding.pry %>
+    //   booking (final - initial) / 1000;
+    //   cost = (((booking / 86400) + 1) * <%#= @booking.room.price %>)
+    //   $('#costMsg').html("$" + cost);
+      // if (@booking.room.special_prices.any?){
+      //   var intial_date = startDateHandle.value();
+      //   // var intial_date = new Date ($('#booking_start_date').val());
+      //   var final_date = new Date ($('#booking_end_date').val());
+      //   var booked_dates = (intial_date..final_date).to_a
+      //   var offer_dates = SpecialPrice.where("room_id = ?", self.room_id)
+      //   <%# binding.pry %>
+      //   <%# offer_dates.each do |offer_date| %>
+      //     <%# binding.pry %>
+      //     date1 = offer_date.start_date
+      //     date2 = offer_date.end_date
+      //     offer_days = (date1..date2).to_a
+      //     <%# booked_dates.each do |date| %>
+      //       <%# binding.pry %>
+      //       if (offer_days.include?(date)) {
+      //         @booking.price = @booking.room.price.to_i + offer_date.price.to_i
+      //       }
+      //       else {
+      //         @booking.price = @booking.room.price.to_i + @booking.room.price.to_i
+      //       }
+      //     <%# end %>
+      //   <%# end %>
+        
+      // } else {
+      //   date1 = @booking.start_date
+      //   date2 = @booking.end_date
+      //   present_date = (date1..date2).to_a
+      //   @booking.price = (present_date.length) * (@booking.room.price.to_i)
+      // }
+    // });
+
+  });
+</script>
 
 
-
+<!-- $('#booking_end_date').on('change',function(){
+  a = new Date($('#booking_start_date').val());
+  b = new Date($('#booking_end_date').val());
+  c = (b-a)/1000;
+    <%# binding.pry %>
+  cost = (((c/86400)+1) * <%#= @room.price %>)
+  // var cost = ($('#booking_start_date').val() - $('#booking_end_date').val());
+  $('#costMsg').html("$"+cost);
+}); -->
 
 
 

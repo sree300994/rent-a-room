@@ -3,7 +3,7 @@
 <% if @rooms.empty? %>
 	<p> No Rooms Found </p>
 <% else %>
-	<table class="table">
+	<table class="table" id="roomList">
 		<thead>
 			<tr>
 				<th>Name</th>
@@ -39,3 +39,10 @@
 <% if can? :create, Room.new %>
 	<%= link_to "Add Room", new_room_path %>
 <% end %>
+
+
+<!-- <script>
+	$(document).ready(function(){
+		$('#roomList').DataTable();
+	});
+</script> -->

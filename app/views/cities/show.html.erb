@@ -1,48 +1,152 @@
-<h2><%= @city.name %></h2>
+<div class="row">
+	<div class="col-md-7">
+		<div class="page-header">
+			<h2><%= @city.name %></h2>
+		</div>
+		<p> Name : <%= @city.name %> </br> </p>
+		<% if @city.rooms.empty? %>
+			<p>No Rooms Found</p>
+		<% else %>
+			<h2>Listing Rooms</h2>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Description</th>
+						<th>Address</th>
+						<th>City</th>
+						<th>Image</th>
+						<th>Amenities</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @city.rooms.each do |room| %>
+						<tr>
+							<td><%= link_to room.name, room %></td>
+							<td><%= room.description %></td>
+							<td><%= room.address %></td>
+							<td><%= room.city.name %></td>
+							<td><%= image_tag room.images.url %></td>
+							<td>
+								<%= room.amenities.count %>
+								<% room.amenities.each do |amenity| %>
+									<li><%= amenity.name %></li>
+								<% end %>
+							</td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+		<% end %>
 
-<p> Name : <%= @city.name %> </br> </p>
-<% if @city.rooms.empty? %>
-	<p>No Rooms Found</p>
-<% else %>
-	<h2>Listing Rooms</h2>
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Name</th>
-				<th>Description</th>
-				<th>Address</th>
-				<th>City</th>
-				<th>Image</th>
-				<th>Amenities</th>
-			</tr>
-		</thead>
-		<tbody>
-			<% @city.rooms.each do |room| %>
-				<tr>
-					<td><%= link_to room.name, room %></td>
-					<td><%= room.description %></td>
-					<td><%= room.address %></td>
-					<td><%= room.city.name %></td>
-					<td><%= image_tag room.images.url %></td>
-					<td>
-						<%= room.amenities.count %>
-						<% room.amenities.each do |amenity| %>
-							<li><%= amenity.name %></li>
-						<% end %>
-					</td>
-				</tr>
-			<% end %>
-		</tbody>
-	</table>
-<% end %>
+		<%= link_to "List Cities", cities_path %>
 
-<%= link_to "List Cities", cities_path %>
+		<% if can? :update, @city %>
+			| <%= link_to "Edit", edit_city_path(@city.id) %> |
+		<% end %>
 
-<% if can? :update, @city %>
-	| <%= link_to "Edit", edit_city_path(@city.id) %> |
-<% end %>
+		<% if can? :destroy, @city %>
+			<%= link_to "Destroy", city_path(@city.id), method: :delete, data: {confirm: "Are you sure"} %>
+		<% end %>
+	</div>
+	<div class="col-md-5">
+		<div class="page-header">
+			<h2>Google Map Route</h2>
+		</div>
+		<div id="map"></div>
+		<style>
+	       #map {
+	        height: 400px;
+	        width: 100%;
+	       }
+		</style>
+	</div>
+</div>
 
-<% if can? :destroy, @city %>
-	<%= link_to "Destroy", city_path(@city.id), method: :delete, data: {confirm: "Are you sure"} %>
-<% end %>
+<!-- <script>
+  function initMap() {
+    // Create a map object and specify the DOM element for display.
+    // var map = new google.maps.Map(document.getElementById('map'), {
+    //   center: {lat: -34.397, lng: 150.644},
 
+    //   zoom: 8
+    // });
+  	var locations = [{lat: 17.355267, lng: 82.54293249999999}];
+    <%# @city.rooms.each do |room| %>
+    	locations.push({lat: <%#= room.latitude %>, lng: <%#= room.longitude %>});
+    <%# end %>
+    locations.forEach(function(location){
+    	console.log(location);
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: location
+        });
+        var marker = new google.maps.Marker({
+        	position: location,
+        	map: map
+        });
+    });
+    // var locations = [{lat: 17.355267, lng: 82.54293249999999}];
+    // <%# @city.rooms.each do |room| %>
+    // 	locations.push({lat: <%#= room.latitude %>, lng: <%#= room.longitude %>});
+    // <%# end %>
+    // 	locations.forEach(function(location){
+    // 		console.log(location);
+	      //   var marker = new google.maps.Marker({
+	      //     position: location,
+	      //     map: map
+	      //   });
+    // 	});
+  }
+    </script> -->
+
+<script>
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 10,
+      center: new google.maps.LatLng(17.355267, 82.54293249999999),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+    var locations = []
+    <% @city.rooms.each do |room| %>
+    	locations.push([<%= room.latitude %>, <%= room.longitude %>])
+    <% end %>
+
+    var infowindow = new google.maps.InfoWindow(), marker, i;
+
+    // var marker, i;
+
+    for (i = 0; i < locations.length; i++) {  
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][0], locations[i][1]),
+        map: map
+      });
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          // infowindow.setContent(locations[i][0]);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+    }
+  </script>
+
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBafn-hychG-pRtOJ78xkZ_KEwEdy7zSPw&callback=initMap"></script>
+
+<!-- function initMap() {
+    var myLatLng = {lat: -25.363, lng: 131.044};
+
+    // Create a map object and specify the DOM element for display.
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: myLatLng,
+      zoom: 4
+    });
+
+    // Create a marker and set its position.
+    var marker = new google.maps.Marker({
+      map: map,
+      position: myLatLng,
+      title: 'Hello World!'
+    });
+} -->

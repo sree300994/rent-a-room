@@ -5,7 +5,6 @@ class CitiesController < ApplicationController
 	load_and_authorize_resource
 
 	def index
-
 		@cities = City.all
 		@city = City.new
 	end
@@ -13,13 +12,13 @@ class CitiesController < ApplicationController
 	def path_change
 
 		if current_user.nil?
-			puts "this"
+			# puts "this"
 			redirect_to cities_path	
 		elsif current_user.role?("admin")
-			puts "this1"
+			# puts "this1"
 			redirect_to bookings_table_path
 		elsif current_user.role?("host")
-			puts "this2"
+			# puts "this2"
 			redirect_to bookings_host_path
 		else
 			redirect_to cities_path

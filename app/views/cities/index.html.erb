@@ -1,26 +1,49 @@
-<h2>Listing Cities </h2>
+<div class="row">
+	<h2>Listing Cities </h2>
 
-<% if @cities.empty? %>
-	<p> No Cities Found </p>
-<% else %>
-	<div id="cityList">
-		<ul>
-			<% @cities.each do |city| %>
-				<li>
-					<p> Name : <%= city.name %> </p> 
-					<%= link_to "Show", city_path(city.id) %>
-				</li>
-				<hr>
-			<% end %>
-		</ul>
-	</div>
-<% end %>
+	<% if @cities.empty? %>
+		<p> No Cities Found </p>
+	<% else %>
+		<div id="cityList">
+			<ul>
+				<% @cities.each do |city| %>
+					<li>
+						<p> Name : <%= city.name %> </p> 
+						<%= link_to "Show", city_path(city.id) %>
+					</li>
+					<hr>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
 
-<div id="errorMsg"></div>
-<% if can? :create, City.new %>
-	<%#= link_to "Add City", new_city_path %>
-	<%= render 'form' %>
-<% end %>
+	<div id="errorMsg"></div>
+	<% if can? :create, City.new %>
+
+		<!-- Button trigger modal -->
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+		  <i class="glyphicon glyphicon-plus"></i> Add City
+		</button>
+
+		<!-- Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="myModalLabel">Add City</h4>
+		      </div>
+		      <div class="modal-body">
+		        <%= render 'form' %>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		<%#= link_to "Add City", new_city_path %>
+		<%#= render 'form' %>
+	<% end %>
+</div>
+
 
 
 

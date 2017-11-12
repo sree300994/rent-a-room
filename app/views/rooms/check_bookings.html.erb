@@ -1,7 +1,7 @@
 <h2>Listing Bookings</h2>
 
 <% @bookings.each do |booking| %>
-<% binding.pry %>
+<!-- <%# binding.pry %> -->
 	<%= booking.start_date %>
 	<%= form_for booking do |f| %>
 		<%= f.hidden_field :is_cancelled, value:true %>

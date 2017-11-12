@@ -1,8 +1,7 @@
-<h2>Listing Bookings</h2>
-
 <% if @bookings.empty? %>
 	<p> No Bookings Found </p>
 <% else %>
+	<h2>Listing Bookings</h2>
 	<ul>
 		<% @bookings.each do |booking| %>
 			<li>
@@ -18,4 +17,4 @@
 		<% end %>
 	</ul>
 <% end %>
-
+<%= link_to "Back", root_path %>

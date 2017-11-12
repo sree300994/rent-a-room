@@ -1,7 +1,16 @@
 <h2> Add Room </h2>
 
 <div id="errorMsg"></div>
-<%= form_for(@room, remote: true) do |f| %>
+<%= form_for @room do |f| %>
+
+	<% if @room.errors.any? %>
+		<h3>These errors prohibitted the form from being saved : </h3>
+		<ul>
+			<% @room.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+			<% end %>
+		</ul>
+	<% end %>
 	
 	<div class="form-group">
 		<label> Name : </label> </br>

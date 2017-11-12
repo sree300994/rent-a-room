@@ -1,34 +1,38 @@
-<h2>Listing Rooms</h2>
-<table class="table">
-	
-<thead>
-	<tr>
-		<td>Sl</td>
-		<td>Room</td>
-		<td>Start Date</td>
-		<td>End Date</td>
-		<td>User</td>
-		<td>Mobile</td>
-		<td>Email</td>
-		<td>Price</td>
-		<td>TotalPrice</td>
-	</tr>
-</thead>
-<tbody>
-	<% @bookings.each_with_index do |booking, index| %>
-	<tr>
-		<td><%= index += 1 %></td>
-		<td><%= booking.room.name %></td>
-		<td><%= booking.start_date %></td>
-		<td><%= booking.end_date %></td>
-		<td><%= booking.user.username%></td>
-		<td><%= booking.user.mobile %></td>
-		<td><%= booking.user.email %></td>
-		<td><%= booking.room.price %></td>
-		<td><%= booking.price %></td>
-	</tr>
-	<% end %>
-</tbody>
-
-</table>
+<% if @rooms.empty? %>
+	<p>No Bookings Found</p>
+<% else %>
+	<h2>My Room(s) Bookings</h2>
+	<table class="table">	
+		<thead>
+			<tr>
+				<td>Sl</td>
+				<td>Room</td>
+				<td>Start Date</td>
+				<td>End Date</td>
+				<td>Booked User</td>
+				<td>Mobile</td>
+				<td>Email</td>
+				<td>Price</td>
+				<td>TotalPrice</td>
+			</tr>
+		</thead>
+		<tbody>
+			<% @rooms.each do |room| %>
+				<% room.bookings.each_with_index do |booking, index| %>
+					<tr>
+						<td><%= index += 1 %></td>
+						<td><%= booking.room.name %></td>
+						<td><%= booking.start_date %></td>
+						<td><%= booking.end_date %></td>
+						<td><%= booking.user.username%></td>
+						<td><%= booking.user.mobile %></td>
+						<td><%= booking.user.email %></td>
+						<td><%= booking.room.price %></td>
+						<td><%= booking.price %></td>
+					</tr>
+				<% end %>
+			<% end %>
+		</tbody>
+	</table>
+<% end %>
 

@@ -1,20 +1,42 @@
-<h2>Listing Bookings</h2>
-
-<% if @bookings.empty? %>
-	<p> No Bookings Found </p>
-<% else %>
-	<ul>
-		<% @bookings.each do |booking| %>
-			<li>
-				<p> User : <%= booking.user.username %> </p>
-				<p> Mobile : <%= booking.user.mobile %></p>
-				<p> Room_Name : <%= booking.room.name %></p>
-				<p> Start_Date : <%= booking.start_date %> </p>
-				<p> End_Date : <%= booking.end_date %></p>
-				<p> Is_Confirmed : <%= booking.is_confirmed %></p>
-				<p> Price : <%= booking.price %></p>
-			</li>
+<div class="row">
+	<div class="col-md-7">
+		<div class="page-header">
+			<h2>Listing Bookings</h2>
+		</div>
+		<% if @bookings.empty? %>
+			<p> No Bookings Found </p>
+		<% else %>
+			<ul>
+				<% @bookings.each do |booking| %>
+					<li>
+						<p><b> User : </b><%= booking.user.username %> </p>
+						<p><b> Mobile : </b><%= booking.user.mobile %></p>
+						<p><b> Room_Name : </b><%= booking.room.name %></p>
+						<p><b> Start_Date : </b><%= booking.start_date %> </p>
+						<p><b> End_Date : </b><%= booking.end_date %></p>
+						<p><b> Is_Confirmed : </b><%= booking.is_confirmed %></p>
+						<p><b> Price : </b><%= booking.price %></p>
+						<%= link_to "Show", booking %>
+					</li>
+				<% end %>
+			</ul>
 		<% end %>
-	</ul>
-<% end %>
+	</div>
+	<div class="col-md-5">
+		<div class="page-header">
+			<h2>Room</h2>
+		</div>
+		<% @bookings.each do |booking| %>
+			<p><%= image_tag booking.room.images.url %></p>
+			<p><b>Room Name : </b><%= booking.room.name %></p>
+			<p><b> Rating : </b>
+				<% booking.room.reviews.each do |review| %>
+					<%= (review.food_rating + review.cleanliness_rating + review.safety_rating + review.facility_rating + review.locality_rating) / 5 %>
+				<% end %>
+			</p>
+			<p><b>Check In : </b><%= booking.start_date %></p>
+			<p><b>Check Out : </b></p>
+		<% end %>
+	</div>
+</div>
 

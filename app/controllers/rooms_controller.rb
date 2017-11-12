@@ -20,17 +20,22 @@ class RoomsController < ApplicationController
 	def create
 		@room = Room.new(room_params)
 		@room.user_id = current_user.id
-		respond_to do |format|
-	      	if @room.save
-		        format.html { redirect_to @room, notice: 'Successfully created the room' }
-		        format.json { render :show, status: :created, location: @room }
-		        format.js
-	      	else
-		        format.html { render :new }
-		        format.json { render json: @room.errors, status: :unprocessable_entity }
-		        format.js
-	      	end
-	  	end
+		if @room.save
+			redirect_to @room, notice: "Successfully created the room"
+		else
+			render action: "new"
+		end
+		# respond_to do |format|
+	 #      	if @room.save
+		#         format.html { redirect_to @room, notice: 'Successfully created the room' }
+		#         format.json { render :show, status: :created, location: @room }
+		#         format.js
+	 #      	else
+		#         format.html { render :new }
+		#         format.json { render json: @room.errors, status: :unprocessable_entity }
+		#         format.js
+	 #      	end
+	 #  	end
 	end
 
 	def edit
@@ -80,7 +85,7 @@ class RoomsController < ApplicationController
 	end
 
 	def check_bookings
-		 binding.pry
+		 # binding.pry
 		@bookings = Booking.where(["room_id = ? AND start_date > ?", params[:format], Date.today])
 	end
 
