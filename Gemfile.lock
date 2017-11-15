@@ -103,8 +103,8 @@ GEM
     nokogiri (1.8.1-x86-mingw32)
       mini_portile2 (~> 2.3.0)
     orm_adapter (0.5.0)
-    pg (0.21.0)
-    pg (0.21.0-x86-mingw32)
+    pg (0.20.0)
+    pg (0.20.0-x86-mingw32)
     pry (0.11.3)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -201,7 +201,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   mini_magick (~> 4.8)
-  pg (~> 0.21.0)
+  pg (~> 0.20.0)
   pry
   rails (= 4.2.7.1)
   sass-rails (~> 5.0)
