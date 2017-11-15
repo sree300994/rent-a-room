@@ -23,11 +23,11 @@
 						<tr>
 							<td><%= link_to room.name, room %></td>
 							<td>
-                <%= room.description.truncate(150) %>
-                <%= link_to room, class: "btn btn-info pull-right" do %>
-                  <i class="glyphicon glyphicon-share-alt"></i> Read More
-                <% end %>       
-              </td>
+                				<%= room.description.truncate(150) %>
+                				<%= link_to room, class: "btn btn-info pull-right" do %>
+                 					<i class="glyphicon glyphicon-share-alt"></i> Read More
+                				<% end %>       
+              				</td>
 							<td><%= room.address %></td>
 							<td><%= room.city.name %></td>
 							<td><%= image_tag room.images.url %></td>

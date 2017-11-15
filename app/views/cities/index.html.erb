@@ -17,7 +17,6 @@
 		</div>
 	<% end %>
 
-	<div id="errorMsg"></div>
 	<% if can? :create, City.new %>
 
 		<!-- Button trigger modal -->
@@ -34,6 +33,7 @@
 		        <h4 class="modal-title" id="myModalLabel">Add City</h4>
 		      </div>
 		      <div class="modal-body">
+		      	<div id="errorMsg"></div>
 		        <%= render 'form' %>
 		      </div>
 		    </div>
