@@ -6,6 +6,14 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Role.create(name: "admin")
-Role.create(name: "host")
-Role.create(name: "guest")
+# Role.create(name: "admin")
+# Role.create(name: "host")
+# Role.create(name: "guest")
+
+
+
+
+
+
+user = User.create!(:email => "admin@gmail.com", :password => "secret123", :password_cofirmation => "secret123", :username => "admin", :role_id => Role.find_by(:name => "admin").id)
+puts "user created with admin role"
