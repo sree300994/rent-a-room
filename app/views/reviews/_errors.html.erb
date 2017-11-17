@@ -1,0 +1,10 @@
+<div class="alert alert-danger">
+	<% if @review.errors.any? %>
+		<h3>These errors prohibitted the form from being saved : </h3>
+		<ul>
+			<% @review.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+			<% end %>
+		</ul>
+	<% end %>
+</div>

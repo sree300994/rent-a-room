@@ -58,7 +58,7 @@
 				<% if @room.bookings.empty? %>
 					<p> No Bookings Found </p>
 				<% else %>
-					<ul>
+					<ul id="reviewList">
 						<% @room.bookings.each do |booking| %>
 							<li>
 								<p> User : <%= booking.user.username %> </p>
@@ -79,28 +79,7 @@
 			<%# binding.pry %>
 				<% if Date.today >= booking.end_date %>
 					<h2>Add Review</h2>
-					<%= form_for @review do |f| %>
-						<label><b>Review  : </b></label> <br/>
-						<%= f.text_area :review, autofocus: true %> <br/>
-
-						<label><b>Food Rating : </b></label> <br/>
-						<%= f.collection_radio_buttons :food_rating, (1..5).map{|n| [n, n]}, :first, :last %> <br/>
-
-						<label><b>Cleanliness Rating : </b></label> <br/>
-						<%= f.collection_radio_buttons :cleanliness_rating, (1..5).map{|n| [n, n]}, :first, :last %> <br/>
-
-						<label><b>Safety Rating : </b></label> <br/>
-						<%= f.collection_radio_buttons :safety_rating, (1..5).map{|n| [n, n]}, :first, :last %> <br/>
-
-						<label><b>Facility Rating : </b></label> <br/>
-						<%= f.collection_radio_buttons :facility_rating, (1..5).map{|n| [n, n]}, :first, :last %> <br/>
-
-						<label><b>Locality Rating : </b></label> <br/>
-						<%= f.collection_radio_buttons :locality_rating, (1..5).map{|n| [n, n]}, :first, :last %> <br/>
-
-						<%= f.hidden_field :room_id, value: @room.id %>
-						<%= f.submit %>
-					<% end %>
+					<%= render '/reviews/form' %>
 				<% end %>
 			<% end %>
 		<% end %>

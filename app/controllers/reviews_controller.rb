@@ -10,7 +10,7 @@ class ReviewsController < ApplicationController
 		@review = Review.new(review_params)
 		@review.user_id = current_user.id
 		if @review.save
-			redirect_to rooms_path, notice: "Successfully created the Review"
+			redirect_to :back, notice: "Successfully created the Review"
 		end
 	end
 

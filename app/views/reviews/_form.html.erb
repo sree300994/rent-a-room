@@ -1,0 +1,22 @@
+<%= form_for(@review, remote: true) do |f| %>
+	<label><b>Review  : </b></label> <br/>
+	<%= f.text_area :review, autofocus: true %> <br/>
+
+	<label><b>Food Rating : </b></label> <br/>
+	<%= f.collection_radio_buttons :food_rating, (1..5).map{|n| [n, n]}, :first, :last %> <br/>
+
+	<label><b>Cleanliness Rating : </b></label> <br/>
+	<%= f.collection_radio_buttons :cleanliness_rating, (1..5).map{|n| [n, n]}, :first, :last %> <br/>
+
+	<label><b>Safety Rating : </b></label> <br/>
+	<%= f.collection_radio_buttons :safety_rating, (1..5).map{|n| [n, n]}, :first, :last %> <br/>
+
+	<label><b>Facility Rating : </b></label> <br/>
+	<%= f.collection_radio_buttons :facility_rating, (1..5).map{|n| [n, n]}, :first, :last %> <br/>
+
+	<label><b>Locality Rating : </b></label> <br/>
+	<%= f.collection_radio_buttons :locality_rating, (1..5).map{|n| [n, n]}, :first, :last %> <br/>
+
+	<%= f.hidden_field :room_id, value: @room.id %>
+	<%= f.submit %>
+<% end %>
