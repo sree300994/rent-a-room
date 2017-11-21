@@ -1,26 +1,38 @@
-<h2>Add Special Price</h2>
-
-<% if @special_price.errors.any? %>
-	<p>These errors prohibitted form from being saved : </p>
-	<ul>
-		<% @special_price.errors.full_messages.each do |msg| %>
-			<li><%= msg %></li>
+<div class="row">
+	<div class="col-md-4">
+		<div class="page-header">
+			<h2>Add Special Price</h2>
+		</div>
+		<% if @special_price.errors.any? %>
+			<p>These errors prohibitted form from being saved : </p>
+			<ul>
+				<% @special_price.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+				<% end %>
+			</ul>
 		<% end %>
-	</ul>
-<% end %>
 
-<%= form_for @special_price, url: room_special_prices_path, method: :post do |f| %>
+		<%= form_for @special_price, url: room_special_prices_path, method: :post do |f| %>
+			
+			<div class="form-group">
+				<label>Start_Date : </label> <br/>
+				<%= f.date_field :start_date, class: "form-control" %> <br/>
+			</div>
 
-	<label>Start_Date : </label> </br>
-	<%= f.date_field :start_date %> </br>
+			<div class="form-group">
+				<label>End_Date : </label> <br/>
+				<%= f.date_field :end_date, class: "form-control" %> <br/>
+			</div>
 
-	<label>End_Date : </label> </br>
-	<%= f.date_field :end_date %> </br>
+			<div class="form-group">
+				<label>Price : </label> <br/>
+				<%= f.number_field :price, class: "form-control" %> <br/>
+			</div>
 
-	<label>Price : </label> </br>
-	<%= f.text_field :price %> </br>
+			<%= f.submit "Add SpecialPrice", class: "btn btn-secondary" %>
+		<% end %>
+	</div>
+</div>
 
-	<%= f.submit %>
-<% end %>
 
 

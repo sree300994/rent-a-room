@@ -24,7 +24,7 @@
 							<td><%= link_to room.name, room %></td>
 							<td>
                 				<%= room.description.truncate(150) %>
-                				<%= link_to room, class: "btn btn-info pull-right" do %>
+                				<%= link_to room, class: "btn btn-info pull-right btn-sm" do %>
                  					<i class="glyphicon glyphicon-share-alt"></i> Read More
                 				<% end %>       
               				</td>
@@ -32,10 +32,10 @@
 							<td><%= room.city.name %></td>
 							<td><%= image_tag room.images.url %></td>
 							<td>
-								<%= room.amenities.count %>
 								<% room.amenities.each do |amenity| %>
 									<li><%= amenity.name %></li>
 								<% end %>
+								(<%= room.amenities.count %>)
 							</td>
 						</tr>
 					<% end %>
@@ -43,14 +43,14 @@
 			</table>
 		<% end %>
 
-		<%= link_to "List Cities", cities_path %>
+		<button type="button" class="btn btn-secondary"><%= link_to "List Cities", cities_path %></button>
 
 		<% if can? :update, @city %>
-			| <%= link_to "Edit", edit_city_path(@city.id) %> |
+			<button type="button" class="btn btn-secondary"><%= link_to "Edit", edit_city_path(@city.id) %></button>
 		<% end %>
 
 		<% if can? :destroy, @city %>
-			<%= link_to "Destroy", city_path(@city.id), method: :delete, data: {confirm: "Are you sure"} %>
+			<button type="button" class="btn btn-secondary"><%= link_to "Destroy", city_path(@city.id), method: :delete, data: {confirm: "Are you sure"} %></button>
 		<% end %>
 	</div>
 	<div class="col-md-5">
@@ -64,8 +64,8 @@
 
 <script>
     var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 6,
-      center: new google.maps.LatLng(17.355267, 82.54293249999999),
+      zoom: 5,
+      center: new google.maps.LatLng(21.146633, 79.088860),
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
 

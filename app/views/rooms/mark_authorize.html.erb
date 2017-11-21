@@ -2,18 +2,22 @@
 	<p>No Rooms Found</p>
 <% else %>
 	<h2>Listing Unauthorized Rooms</h2>
-	<% @rooms.each do |room| %>
-		<li>
-			<p> Name : <%= room.name %> </p>
-			<p> Is_Authorized : <%= room.is_authorized %> </p>
-			<%= form_for room do |f| %>
-				<%= f.check_box :is_authorized %>
-				<%= f.submit "Authorize Room" %>
-			<% end %>
-			<%= link_to "Show", room_path(room.id) %>
-		</li>
-	<% end %>
+	<ul>
+		<% @rooms.each do |room| %>
+			<li>
+				<p> Name : <%= room.name %> </p>
+				<p> Is_Authorized : <%= room.is_authorized %> </p>
+				<p>
+					<%= form_for room do |f| %>
+						<%= f.check_box :is_authorized %>
+						<%= f.submit "Authorize Room", class: "btn btn-secondary btn-xs" %>
+					<% end %>
+				</p>
+				<p><button type="button" class="btn btn-secondary"><%= link_to "Show", room_path(room.id) %></button></p>
+			</li>
+		<% end %>
+	</ul>
 <% end %>
+<button type="button" class="btn btn-secondary"><%= link_to "Back", root_path %></button>
 
-<%= link_to "Back", root_path %>
 

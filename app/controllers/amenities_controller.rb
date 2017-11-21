@@ -6,19 +6,26 @@ class AmenitiesController < ApplicationController
 
 	def index
 		@amenities = Amenity.all
-	end
-
-	def new
 		@amenity = Amenity.new
 	end
 
+	# def new
+	# 	@amenity = Amenity.new
+	# end
+
 	def create
 		@amenity = Amenity.new(amenity_params)
-		if @amenity.save
-			redirect_to amenities_path, notice: "Successfully created the amenity"
-		else
-			render action: "new"
-		end
+		respond_to do |format|
+	      if @amenity.save
+	        format.html { redirect_to @amenity, notice: 'amenity was successfully created.' }
+	        format.json { render :show, status: :created, location: @amenity }
+	        format.js
+	      else
+	        format.html { render :new }
+	        format.json { render json: @amenity.errors, status: :unprocessable_entity }
+	        format.js
+	      end
+    	end
 	end
 
 	def edit

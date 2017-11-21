@@ -1,49 +1,47 @@
 <!DOCTYPE html>
 <html>
-<head>
-  	<title>RentARoom</title>
-  	<link rel="icon" type="jpg/png" href="wow.jpg">
-  	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  	<script src="../jquery-ui.js" /></script>
-  	<link href="../jquery-ui.css" rel = "stylesheet" />
-  	<script src="../chosen.jquery.js" /></script>
-	<link href="../chosen.css" rel="stylesheet" />
-	
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<head>
+	  	<title>RentARoom</title>
+	  	<link rel="icon" type="jpg/png" href="wow.jpg">
+	  	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+	  	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+	  	<script src="../jquery-ui.js" /></script>
+	  	<link href="../jquery-ui.css" rel = "stylesheet" />
+	  	<script src="../chosen.jquery.js" /></script>
+		<link href="../chosen.css" rel="stylesheet" />
+		
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-	<link rel="stylesheet" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
 
-	<script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+		<script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
-	<%= csrf_meta_tags %>
-	<!-- <link rel="stylesheet" type="text/css" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5Pv6HHPK1QkacUWxSo0bBetQlcE_qzhykPucSRtQYqfMKErhIgg"> -->
-</head>
-<body>
-<div class="container">	
-	<%= render './layouts/nav' %>
-	<p class="notice"><%= notice %></p>
-	<p class="alert"><%= alert %></p>
-	<!-- <p> -->
-		<%# if user_signed_in? %>
-			<%#= link_to "Bookings", dashboard_index_path %>
+		<%= csrf_meta_tags %>
+		<!-- <link rel="stylesheet" type="text/css" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5Pv6HHPK1QkacUWxSo0bBetQlcE_qzhykPucSRtQYqfMKErhIgg"> -->
+	</head>
+	<body>
+		<div class="container">	
+			<%= render './layouts/nav' %>
+			<p class="notice"><%= notice %></p>
+			<p class="alert"><%= alert %></p>
+			<!-- <p> -->
+				<%# if user_signed_in? %>
+					<%#= link_to "Bookings", dashboard_index_path %>
 
-			<%# if current_user.role?("host") == true %>
-				<%#= link_to "My Rooms", rooms_my_rooms_path %>  <%#= link_to "Unconfirmed Bookings", bookings_unconfirmed_path %>
-			<%# end %>
+					<%# if current_user.role?("host") == true %>
+						<%#= link_to "My Rooms", rooms_my_rooms_path %>  <%#= link_to "Unconfirmed Bookings", bookings_unconfirmed_path %>
+					<%# end %>
 
-			<%# if current_user.role?("admin") == true %>
-				<%#= link_to "Unauthorized",rooms_mark_authorize_path %> <%#= link_to "Users", dashboard_user_path %>
-			<%# end %>
-		<%# end %>
-	<!-- </p> -->
-	<%= yield %>
-</div>
-
-
-</body>
+					<%# if current_user.role?("admin") == true %>
+						<%#= link_to "Unauthorized",rooms_mark_authorize_path %> <%#= link_to "Users", dashboard_user_path %>
+					<%# end %>
+				<%# end %>
+			<!-- </p> -->
+			<%= yield %>
+		</div>
+	</body>
 </html>
 <!-- https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5Pv6HHPK1QkacUWxSo0bBetQlcE_qzhykPucSRtQYqfMKErhIgg -->

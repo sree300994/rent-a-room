@@ -2,18 +2,40 @@
 <% if @amenities.empty? %>
 	<p> No Amenities found </p>
 <% else %>
-	<ul>
-		<% @amenities.each do |amenity| %>
-			<li> 
-			<p> Name : <%= amenity.name %> </p>
-			<p> Description : <%= amenity.description %> </p>
-			<%= link_to "Show", amenity_path(amenity.id) %>
-			<hr>
-			</li>
-		<% end %>
-	</ul>
+	<div id="amenityList">
+		<ul>
+			<% @amenities.each do |amenity| %>
+				<li> 
+					<p> Name : <%= amenity.name %> </p>
+					<p> Description : <%= amenity.description %> </p>
+					<button type="button" class="btn btn-secondary btn-xs"><%= link_to "Show", amenity_path(amenity.id) %></button>
+					<hr>
+				</li>
+			<% end %>
+		</ul>
+	</div>
 <% end %>
 <% if can? :create, Amenity.new %>
-	<%= link_to "Add Amenities", new_amenity_path %>
+		<!-- Button trigger modal -->
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+		  <i class="glyphicon glyphicon-plus"></i> Add Amenity
+		</button>
+
+		<!-- Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="myModalLabel">Add Amenity</h4>
+		      </div>
+		      <div class="modal-body">
+		      	<div id="errorMsg"></div>
+		        <%= render 'form' %>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	<%#= link_to "Add Amenities", new_amenity_path %>
 <% end %>
 

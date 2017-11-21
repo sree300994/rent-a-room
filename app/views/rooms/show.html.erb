@@ -43,7 +43,7 @@
 						<p><b> Average Rating : </b><%= (review.food_rating + review.cleanliness_rating + review.safety_rating + review.facility_rating + review.locality_rating) / 5 %></p>
 						<% if user_signed_in? %>
 							<% if can? :destroy, review %>
-								<%= link_to "Destroy", review_path(review), method: :delete %>
+								<button type="button" class="btn btn-secondary btn-sm"><%= link_to "Destroy", review_path(review), method: :delete %></button>
 							<% end %>
 						<% end %>
 					</li>
@@ -65,7 +65,7 @@
 								<p> Start_Date : <%= booking.start_date %> </p>
 								<p> End_Date : <%= booking.end_date %></p>
 								<p> Is_Confirmed : <%= booking.is_confirmed %></p>
-								<%= link_to "Show", booking %>
+								<button type="button" class="btn btn-secondary btn-sm"><%= link_to "Show", booking %></button>
 							</li>
 						<% end %>
 					</ul>
@@ -95,32 +95,37 @@
 
 		<h2>Add Booking</h2>
 		<%= form_for @booking do |f| %>
+
 			<label><b>Start Date : </b></label> </br>
 			<%= f.text_field :start_date %> </br>
+			<span id="startDate"></span>
 
 			<label><b>End Date : </b></label> </br>
 			<%= f.text_field :end_date %> </br>
+			<span id="endDate"></span>
 			<span id="costMsg"></span> <br />
 
 			<%= f.hidden_field :room_id, value: @room.id %>
-			<%= f.submit %>
-		<% end %>
+			<%= f.submit "Create Booking", class: "btn btn-secondary" %>
+		<% end %><br/>
 
-		<% if user_signed_in? %>
-			<% if @room.user_id == current_user.id %>
-				<%= link_to "Add Special Price", new_room_special_price_path(@room.id) %> |
+		<p>
+			<button type="button" class="btn btn-secondary"><%= link_to "List Rooms", rooms_path %></button>
+
+			<% if user_signed_in? %>
+				<% if @room.user_id == current_user.id %>
+					<button type="button" class="btn btn-secondary"> <%= link_to "Add Special Price", new_room_special_price_path(@room.id) %></button>
+				<% end %>
 			<% end %>
-		<% end %>
 
-		<%= link_to "List Rooms", rooms_path %>
+			<% if can? :update, @room %>
+				<button type="button" class="btn btn-secondary"><%= link_to "Edit", edit_room_path(@room.id) %></button>
+			<% end %>
 
-		<% if can? :update, @room %>
-			|<%= link_to "Edit", edit_room_path(@room.id) %> |
-		<% end %>
-
-		<% if can? :destroy, @room %>
-			<%= link_to "Destroy", rooms_check_bookings_path(@room.id) %>
-		<% end %>
+			<% if can? :destroy, @room %>
+				<button type="button" class="btn btn-secondary"><%= link_to "Destroy", rooms_check_bookings_path(@room.id) %></button>
+			<% end %>
+		</p>
 	</div>
 	<div class="col-md-5">
 		<div class="page-header">

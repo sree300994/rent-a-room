@@ -1,12 +1,13 @@
 <h2>Listing Rooms</h2>
+<ul>
+	<% @rooms.each do |room| %>
+		<li>
+			<p> Name : <%= room.name %> </p>
+			<p> Description : <%= room.description %> </p>
+			<p> Address : <%= room.address %> </p>
+			<button type="button" class="btn btn-secondary btn-sm"><%= link_to "Show", room_path(room.id) %></button>
+		</li>
+	<% end %>
+</ul>
 
-<% @rooms.each do |room| %>
-	<li>
-		<p> Name : <%= room.name %> </p>
-		<p> Description : <%= room.description %> </p>
-		<p> Address : <%= room.address %> </p>
-		<%= link_to "Show", room_path(room.id) %>
-	</li>
-<% end %>
-
-<%= link_to "New Room", new_room_path %>
+<button type="button" class="btn btn-secondary"><%= link_to "New Room", new_room_path %></button>

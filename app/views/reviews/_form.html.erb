@@ -18,5 +18,5 @@
 	<%= f.collection_radio_buttons :locality_rating, (1..5).map{|n| [n, n]}, :first, :last %> <br/>
 
 	<%= f.hidden_field :room_id, value: @room.id %>
-	<%= f.submit %>
+	<%= f.submit "Add Review", class: "btn btn-secondary" %>
 <% end %>

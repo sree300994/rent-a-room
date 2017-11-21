@@ -5,7 +5,7 @@
 	<%= booking.start_date %>
 	<%= form_for booking do |f| %>
 		<%= f.hidden_field :is_cancelled, value:true %>
-		<%= f.submit "Notify Guest" %>
+		<%= f.submit "Notify Guest", class: "btn btn-secondary" %>
 	<% end %>
-	<%= link_to "Destroy", room_path(booking.room.id), method: :delete, data: {confirm: "Are you sure"} %>
+	<button type="button" class="btn btn-secondary"><%= link_to "Destroy", room_path(booking.room.id), method: :delete, data: {confirm: "Are you sure"} %></button>
 <% end %>

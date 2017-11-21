@@ -1,6 +1,7 @@
 <% if @city.errors.any? %>
 	$('#errorMsg').html("<%= escape_javascript render 'errors' %>");
 <% else %>
+	$('#myModal').modal('hide');
 	$('#new_city')[0].reset();
 	$('#cityList').append("<%= escape_javascript render 'cities' %>");
 <% end %>

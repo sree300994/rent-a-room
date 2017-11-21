@@ -10,7 +10,7 @@ class RoomsController < ApplicationController
 	def index
 		# @rooms = Room.all
 		# @rooms = Room.paginate(:page => params[:page])
-		@rooms = Room.where("is_authorized = ?", true).paginate(:page => params[:page], :per_page => 2)
+		@rooms = Room.where("is_authorized = ?", true).paginate(:page => params[:page], :per_page => 3)
 	end
 
 	def new

@@ -23,7 +23,7 @@
 							<td><%= link_to room.name, room_path(room.id) %></td>
 							<td>
           						<%= room.description.truncate(150) %>
-          						<%= link_to room, class: "btn btn-info pull-right" do %>
+          						<%= link_to room, class: "btn btn-info pull-right btn-sm" do %>
             						<i class="glyphicon glyphicon-share-alt"></i> Read More
           						<% end %>
           					</td>
@@ -45,7 +45,7 @@
 		<%= will_paginate @rooms %> <br/>
 
 		<% if can? :create, Room.new %>
-			<%= link_to "Add Room", new_room_path %>
+			<button type="button" class="btn btn-secondary"><%= link_to "Add Room", new_room_path %></button>
 		<% end %>
 	</div>
 	<div class="col-md-5">
@@ -59,8 +59,8 @@
 
 <script>
     var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 6,
-      center: new google.maps.LatLng(17.355267, 82.54293249999999),
+      zoom: 4,
+      center: new google.maps.LatLng(21.146633, 79.088860),
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
 

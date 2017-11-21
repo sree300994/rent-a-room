@@ -37,7 +37,7 @@ class CitiesController < ApplicationController
 	        format.json { render json: @city.errors, status: :unprocessable_entity }
 	        format.js
 	      end
-    end
+    	end
 	end
 
 	def edit

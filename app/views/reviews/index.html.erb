@@ -9,7 +9,7 @@
 				<p><b> REVIEW : </b><%= review.review %> </p>
 				<p><b> Average Rating : </b><%= (review.food_rating + review.cleanliness_rating + review.safety_rating + review.facility_rating + review.locality_rating) / 5 %></p>
 				<% if review.user_id == current_user.id %>
-					<%= link_to "Destroy", review_path(review), method: :delete %>
+					<button type="button" class="btn btn-secondary"><%= link_to "Destroy", review_path(review), method: :delete %></button>
 				<% end %>
 			</li>
 		<% end %>

@@ -17,7 +17,7 @@
 	<label> Description : </label> </br>
 	<%= f.text_area :description %> </br>
 
-	<%= f.submit %> or <%= link_to "Back", amenities_path %>
+	<%= f.submit "Edit Amenity", class: "btn btn-secondary" %> or <button type="button" class="btn btn-secondary"><%= link_to "Back", amenities_path %></button>
 
 <% end %>
 
