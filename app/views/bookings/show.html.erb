@@ -1,12 +1,34 @@
-<h2>Listing Booking</h2>
-
-<p>User : <%= @booking.user.username %></p>
-<p> Mobile : <%= @booking.user.mobile %></p>
-<p> Room_Name : <%= @booking.room.name %></p>
-<p> Start_Date : <%= @booking.start_date %> </p>
-<p> End_Date : <%= @booking.end_date %></p>
-<p> Is_Confirmed : <%= @booking.is_confirmed %></p>
-<p> Price : <%= @booking.price %></p>
+<div class="row">
+	<div class="col-md-7">
+		<div class="page-header">
+			<h2>Listing Booking</h2>
+		</div>
+		<p>User : <%= @booking.user.username %></p>
+		<p> Mobile : <%= @booking.user.mobile %></p>
+		<p> Room_Name : <%= @booking.room.name %></p>
+		<p> Start_Date : <%= @booking.start_date %> </p>
+		<p> End_Date : <%= @booking.end_date %></p>
+		<p> Is_Confirmed : <%= @booking.is_confirmed %></p>
+		<p> Total Price : <%= @booking.price %></p>
+	</div>
+	<div class="col-md-5">
+		<div class="page-header">
+			<h2>Room</h2>
+		</div>
+		<p><%= image_tag @booking.room.images.url %></p>
+		<p><b>Room Name : </b><%= @booking.room.name %></p>
+		<p><b>Address : </b><%= @booking.room.address %></p>
+		<p><b> Rating : </b>
+			<% @booking.room.reviews.each do |review| %>
+				<%= (review.food_rating + review.cleanliness_rating + review.safety_rating + review.facility_rating + review.locality_rating) / 5 %>
+			<% end %>
+		</p>
+		<p><b>Check In : </b><%= @booking.start_date %></p>
+		<p><b>Check Out : </b><%= @booking.end_date %></p>
+		<p><b>Days : </b><%= (@booking.start_date..@booking.end_date).count %></p>
+		<p><b>Price : </b><%= @booking.room.price %></p>
+	</div>
+</div>
 
 
 

@@ -3,10 +3,8 @@ Rails.application.routes.draw do
   get 'rooms/check_bookings'
   get 'dashboard/user'
   get 'cities/path_change'
-  root 'cities#path_change'
   get 'dashboard/index'
   get 'bookings/unconfirmed'
-
   get 'bookings/host'
   get 'bookings/table'
   get 'admins/rooms'
@@ -15,7 +13,8 @@ Rails.application.routes.draw do
   get 'rooms/mark_authorize'
   get 'rooms/my_rooms'
   
-  devise_for :users
+  devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
+  root 'cities#path_change'
 
   resources :rooms do
     resources :special_prices

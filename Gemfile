@@ -13,6 +13,8 @@ gem 'cancancan', '~> 2.0'
 gem 'will_paginate', '~> 3.1', '>= 3.1.6'
 gem 'carrierwave', '~> 1.1'
 gem 'mini_magick', '~> 4.8'
+gem 'omniauth', '~> 1.7.0'
+gem 'omniauth-facebook', '~> 4.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets

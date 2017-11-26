@@ -86,11 +86,24 @@
 
 		<% if @room.special_prices.any? %>
 			<h2>Listing Special Prices</h2>
-			<% @room.special_prices.each do |special_price| %>
-				<p><b> Start Date : </b><%= special_price.start_date %></p>
-				<p><b> End Date : </b><%= special_price.end_date %></p>
-				<p><b> Price : </b><%= special_price.price %></p>
-			<% end %>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Start Date</th>
+						<th>End Date</th>
+						<th>Price</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @room.special_prices.each do |special_price| %>
+						<tr>
+							<td><%= special_price.start_date %></td>
+							<td><%= special_price.end_date %></td>
+							<td><%= special_price.price %></td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
 		<% end %>
 
 		<h2>Add Booking</h2>
@@ -103,7 +116,10 @@
 			<label><b>End Date : </b></label> </br>
 			<%= f.text_field :end_date %> </br>
 			<span id="endDate"></span>
-			<span id="costMsg"></span> <br />
+
+			<label><b>Price : </b></label> <br/>
+			<!-- <input type="text" id="booking_price" value= "${}" ><br/> -->
+			<span id="booking_price"><%= f.text_field :price %></span><br/>
 
 			<%= f.hidden_field :room_id, value: @room.id %>
 			<%= f.submit "Create Booking", class: "btn btn-secondary" %>
@@ -139,12 +155,13 @@
 		</iframe>
 	</div>
 </div>
-<!-- AIzaSyAVop-Wj9ivBsW0ghXziYrHpj_c0kIkov8 -->
+<!-- maps = AIzaSyAVop-Wj9ivBsW0ghXziYrHpj_c0kIkov8 -->
 
 <script>
   $(document).ready(function(){
     var startDateHandle = document.getElementById('startDate');
     var endDateHandle = document.getElementById('endDate');
+    // var booking_priceHandle = document.getElementById('booking_price').value;
 
     var disabledDates = <%= raw Booking.all.pluck(:start_date, :end_date).map{|dates| (dates[0]..dates[1]).to_a}.flatten.uniq.map{|date| date.strftime("%d-%m-%Y")} %> 
 
@@ -184,11 +201,13 @@
 
     	// } else {
 			initial = new Date($('#booking_start_date').val());
+			console.log(initial);
 			final = new Date($('#booking_end_date').val());
 			booking = (final - initial)/1000;
 			<%# binding.pry %>
 			cost = (((booking / 86400) + 1) * <%= @room.price %>)
-			$('#costMsg').html("$"+cost);
+			// document.getElementById('booking_price').value = cost;
+			$('#booking_price').html("$"+cost);
     	// }
 	});
 
@@ -198,7 +217,7 @@
     //   <%# binding.pry %>
     //   booking (final - initial) / 1000;
     //   cost = (((booking / 86400) + 1) * <%#= @booking.room.price %>)
-    //   $('#costMsg').html("$" + cost);
+    //   $('#booking_price').html("$" + cost);
       // if (@booking.room.special_prices.any?){
       //   var intial_date = startDateHandle.value();
       //   // var intial_date = new Date ($('#booking_start_date').val());
@@ -234,15 +253,7 @@
 </script>
 
 
-<!-- $('#booking_end_date').on('change',function(){
-  a = new Date($('#booking_start_date').val());
-  b = new Date($('#booking_end_date').val());
-  c = (b-a)/1000;
-    <%# binding.pry %>
-  cost = (((c/86400)+1) * <%#= @room.price %>)
-  // var cost = ($('#booking_start_date').val() - $('#booking_end_date').val());
-  $('#costMsg').html("$"+cost);
-}); -->
+
 
 
 

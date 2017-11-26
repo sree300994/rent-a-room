@@ -22,21 +22,5 @@
 			</ul>
 		<% end %>
 	</div>
-	<div class="col-md-5">
-		<div class="page-header">
-			<h2>Room</h2>
-		</div>
-		<% @bookings.each do |booking| %>
-			<p><%= image_tag booking.room.images.url %></p>
-			<p><b>Room Name : </b><%= booking.room.name %></p>
-			<p><b> Rating : </b>
-				<% booking.room.reviews.each do |review| %>
-					<%= (review.food_rating + review.cleanliness_rating + review.safety_rating + review.facility_rating + review.locality_rating) / 5 %>
-				<% end %>
-			</p>
-			<p><b>Check In : </b><%= booking.start_date %></p>
-			<p><b>Check Out : </b></p>
-		<% end %>
-	</div>
 </div>
 

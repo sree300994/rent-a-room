@@ -48,8 +48,9 @@ class Booking < ActiveRecord::Base
 					# binding.pry
 					if offer_days.include?(date)
 						self.price = self.price.to_i + offer_date.price.to_i
-					else
-						self.price = self.price.to_i + self.room.price.to_i
+					# else
+						# break
+						# self.price = self.price.to_i + self.room.price.to_i
 					end
 				end
 			end

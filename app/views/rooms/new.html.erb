@@ -64,7 +64,7 @@
 					<input type="checkbox" name="City.all" value="id">
 				</div> -->
 				<label> City : </label> </br>
-				<%= f.collection_select :city_id, City.all, :id, :name %> </br>
+				<%= f.collection_select :city_id, City.all, :id, :name, prompt: "Select City" %> </br>
 			</div>
 		<%#= f.collection_select :category, Category.all, :id, :name, {prompt: "Select a category"}, {class: "form-control"} %>
 

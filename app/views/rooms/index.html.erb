@@ -31,10 +31,10 @@
 							<td><%= room.city.name %></td>
 							<td><%= image_tag room.images.url %></td>
 							<td>
-								<%= room.amenities.count %>
 								<% room.amenities.each do |amenity| %>
 									<li><%= amenity.name %></li>
 								<% end %>
+								(<%= room.amenities.count %>)
 							</td>
 						</tr>
 					<% end %>
