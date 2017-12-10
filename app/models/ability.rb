@@ -39,7 +39,7 @@ class Ability
       end
       can :host, Booking
       can :create, SpecialPrice
-      can :path_change, City
+       can :path_change, City
       can :destroy, [Review], :room => { :user_id => user.id }
       can :check_bookings, Room
     elsif user.role?("admin")

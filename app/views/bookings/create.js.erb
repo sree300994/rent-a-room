@@ -1,0 +1,7 @@
+<% if @booking.errors.any? %>
+	$('#errorMsg').html("<%= escape_javascript render 'errors' %>");
+<% else %>
+	$('#myModal').modal('hide');
+	$('#bookingList').append("<%= escape_javascript render 'bookings' %>")
+	$('#new_booking')[0].reset();
+<% end %>

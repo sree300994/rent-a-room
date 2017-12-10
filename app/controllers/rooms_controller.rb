@@ -10,7 +10,7 @@ class RoomsController < ApplicationController
 	def index
 		# @rooms = Room.all
 		# @rooms = Room.paginate(:page => params[:page])
-		@rooms = Room.where("is_authorized = ?", true).paginate(:page => params[:page], :per_page => 3)
+		@rooms = Room.where("is_authorized = ?", true).paginate(:page => params[:page], :per_page => 6)
 	end
 
 	def new
@@ -64,7 +64,7 @@ class RoomsController < ApplicationController
 	def destroy
 		if @room.destroy
 			redirect_to rooms_path, notice: "Successfully deleted the room"
-		else
+		# else
 			# redirect_to @room, notice: "#{@room.errors[:base]}"
 		end
 	end

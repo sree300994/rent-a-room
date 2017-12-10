@@ -1,42 +1,53 @@
 <%= form_for @booking do |f| %>
-	<label><b>Start Date : </b></label> </br>
-	<%= f.text_field :start_date %> </br>
-  <span id="startDate"></span>
 
-	<label><b>End Date : </b></label> </br>
-	<%= f.text_field :end_date %> </br>
-  <span id="endDate"></span>
-  <span id="costMsg"></span>
+  <div class="form-group">
+    <label><b>Start Date : </b></label> </br>
+    <%= f.text_field :start_date, class: "form-control" %> </br>
+    <span id="startDate"></span>
+  </div>
 
-	<%= f.hidden_field :room_id, value: @room.id %>
-	<%= f.submit %>
-<% end %>
+  <div class="form-group">
+    <label><b>End Date : </b></label> </br>
+    <%= f.text_field :end_date, class: "form-control" %> </br>
+    <span id="endDate"></span>
+  </div>
+
+  <div class="form-group">
+    <label><b>Price : </b></label> <br/>
+    <!-- <input type="text" id="booking_price" value= "" ><br/> -->
+    <span id="booking_price"><%= f.text_field :price, class: "form-control" %></span><br/>
+  </div>
+
+  <%= f.hidden_field :room_id, value: @room.id %>
+  <%= f.submit "Create Booking", class: "btn btn-secondary" %>
+<% end %><br/>
 <script>
   $(document).ready(function(){
     var startDateHandle = document.getElementById('startDate');
     var endDateHandle = document.getElementById('endDate');
+    // var booking_priceHandle = document.getElementById('booking_price').value;
 
     var disabledDates = <%= raw Booking.all.pluck(:start_date, :end_date).map{|dates| (dates[0]..dates[1]).to_a}.flatten.uniq.map{|date| date.strftime("%d-%m-%Y")} %> 
 
     function DisableSpecificDates(date) {
-      	var string = jQuery.datepicker.formatDate('dd-mm-yy', date);
-    	return [disabledDates.indexOf(string) == -1];
-  	}
+        var string = jQuery.datepicker.formatDate('dd-mm-yy', date);
+      return [disabledDates.indexOf(string) == -1];
+    }
 
     $('#booking_start_date').datepicker({
-      	beforeShowDay: DisableSpecificDates,
-      	dateFormat: 'yy-mm-dd', 
-      	numberOfMonths: 2, 
-      	minDate: 0
+        beforeShowDay: DisableSpecificDates,
+        dateFormat: 'yy-mm-dd', 
+        numberOfMonths: 2, 
+        minDate: 0
     });
 
     function setEndDate(startingDate){
-      	$('#booking_end_date').datepicker({
-        	beforeShowDay: DisableSpecificDates,
-        	minDate: startingDate,
-        	dateFormat: 'yy-mm-dd', 
-        	numberOfMonths: 2
-      	});
+        $('#booking_end_date').datepicker({
+          beforeShowDay: DisableSpecificDates,
+          minDate: startingDate,
+          dateFormat: 'yy-mm-dd', 
+          numberOfMonths: 2
+        });
     }
 
     $('#booking_start_date').on('change', function(){
@@ -48,26 +59,42 @@
       }, 0);
     });
 
-    $('#booking_end_date').on('change', function(){
+    $('#booking_end_date').on('change',function(){
+      // if (@room.special_prices.any?) {
+      //  // initial_date
+
+      // } else {
       initial = new Date($('#booking_start_date').val());
+      console.log(initial);
       final = new Date($('#booking_end_date').val());
-      <% binding.pry %>
-      booking (final - initial) / 1000;
-      cost = (((booking / 86400) + 1) * <%= @booking.room.price %>)
-      $('#costMsg').html("$" + cost);
+      booking = (final - initial)/1000;
+      <%# binding.pry %>
+      cost = (((booking / 86400) + 1) * <%= @room.price %>)
+      // document.getElementById('booking_price').value = cost;
+      $('#booking_price').html("$"+cost);
+      // }
+  });
+
+    // $('#booking_end_date').on('change', function(){
+    //   initial = new Date($('#booking_start_date').val());
+    //   final = new Date($('#booking_end_date').val());
+    //   <%# binding.pry %>
+    //   booking (final - initial) / 1000;
+    //   cost = (((booking / 86400) + 1) * <%#= @booking.room.price %>)
+    //   $('#booking_price').html("$" + cost);
       // if (@booking.room.special_prices.any?){
       //   var intial_date = startDateHandle.value();
       //   // var intial_date = new Date ($('#booking_start_date').val());
       //   var final_date = new Date ($('#booking_end_date').val());
       //   var booked_dates = (intial_date..final_date).to_a
       //   var offer_dates = SpecialPrice.where("room_id = ?", self.room_id)
-      //   <% binding.pry %>
-      //   <% offer_dates.each do |offer_date| %>
+      //   <%# binding.pry %>
+      //   <%# offer_dates.each do |offer_date| %>
       //     <%# binding.pry %>
       //     date1 = offer_date.start_date
       //     date2 = offer_date.end_date
       //     offer_days = (date1..date2).to_a
-      //     <% booked_dates.each do |date| %>
+      //     <%# booked_dates.each do |date| %>
       //       <%# binding.pry %>
       //       if (offer_days.include?(date)) {
       //         @booking.price = @booking.room.price.to_i + offer_date.price.to_i
@@ -75,8 +102,8 @@
       //       else {
       //         @booking.price = @booking.room.price.to_i + @booking.room.price.to_i
       //       }
-      //     <% end %>
-      //   <% end %>
+      //     <%# end %>
+      //   <%# end %>
         
       // } else {
       //   date1 = @booking.start_date
@@ -84,7 +111,7 @@
       //   present_date = (date1..date2).to_a
       //   @booking.price = (present_date.length) * (@booking.room.price.to_i)
       // }
-    });
+    // });
 
   });
 </script>
@@ -95,7 +122,7 @@
   b = new Date($('#booking_end_date').val());
   c = (b-a)/1000;
     <%# binding.pry %>
-  cost = (((c/86400)+1) * <%= @room.price %>)
+  cost = (((c/86400)+1) * <%#= @room.price %>)
   // var cost = ($('#booking_start_date').val() - $('#booking_end_date').val());
   $('#costMsg').html("$"+cost);
 });

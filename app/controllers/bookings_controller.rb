@@ -14,7 +14,7 @@ class BookingsController < ApplicationController
 		if @booking.save
 			# Notification.booking_created(@booking).deliver_now!
 			# Notification.booking_status(@booking).deliver_now!
-			redirect_to @booking
+			redirect_to bookings_path
 		else
 			redirect_to rooms_path, notice: "#{@booking.errors[:base]}"
 		end
@@ -28,8 +28,8 @@ class BookingsController < ApplicationController
 		# binding.pry
 		if @booking.update_attributes(booking_params)
 			# if @booking.is_confirmed == true && @booking.is_cancelled == true
-			# 	Notification.booking_confirmation(@booking).deliver_now!
-			# elsif @booking.is_cancelled == true
+				Notification.booking_confirmation(@booking).deliver_now!
+			# elsif @booking.is_confirmed == true && @booking.is_cancelled == true
 			# 	Notification.booking_cancellation(@booking).deliver_now!
 			# 	redirect_to rooms_check_bookings_path
 			# end

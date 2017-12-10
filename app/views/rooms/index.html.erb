@@ -1,4 +1,60 @@
 <div class="row">
+	<% @rooms.each do |room|%>
+	<div class="col-sm-6 col-md-4 col-lg-4">
+		<div class="card">
+		  <%= link_to image_tag(room.images.url, height: "150px", width: "100%"), room_path(room) %>
+		  <div class="card-padding">
+
+        <!-- Event Header -->
+		  	<div class="row">
+		  		<h4 class="text-center"><%= link_to "#{room.name}", room_path(room) %></h4>
+		  	</div>
+	      
+        <!-- Room Control Panel -->
+        <div class="row">
+        	<div class="col-md-8"> 
+        		<p class="text-left"><%= room.city.name %></p>
+        	</div>
+        	<div class="col-md-4">
+        		<p class="text-center">
+        			<%= link_to room_path(room) do%>
+    						<span class="glyphicon glyphicon-eye-open"></span>
+    					<%end%>
+    					<% if can? :update, room %>
+    						<%= link_to edit_room_path(room) do %>
+    							<span class="glyphicon glyphicon-pencil"></span>
+    						<%end%>
+    						<%= link_to room_path(room), method: :delete, data: {confirm: "Are you sure?"} do %>
+    							<span class="glyphicon glyphicon-trash"></span>
+    						<%end%>	
+    					<% end %>
+        		</p>
+        	</div>
+        </div>
+        
+        <!-- Room Date & Buy -->
+        <div class="row">
+        	<div class="col-sm-6 col-md-6 ">
+        		<p class="text-center well well-sm"> <small>Rs.<%= room.price %></small></p>
+        	</div>
+        	<div class="col-sm-6 col-md-6" style="margin-top:2px">
+        		<p class="text-center"><a href="/rooms/<%= "#{room.id}" %>" class="btn btn-danger" role="button" style="border: none; color: white;">Book Room</a></p>
+        	</div>
+        </div>
+
+		  </div>
+		</div>
+	</div>
+	<%end%>
+</div>
+<%= will_paginate @rooms %> <br/>
+
+<% if can? :create, Room.new %>
+	<button type="button" class="btn btn-secondary"><%= link_to "Add Room", new_room_path %></button>
+<% end %>
+
+
+<!-- <div class="row">
 	<div class="col-md-7">
 		<div class="page-header">
 			<h2>Listing Rooms</h2>
@@ -86,7 +142,7 @@
         }
       })(marker, i));
     }
-  </script>
+  </script> -->
 
 
 <!-- <script>

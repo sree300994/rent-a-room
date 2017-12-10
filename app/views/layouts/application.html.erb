@@ -2,13 +2,21 @@
 <html>
 	<head>
 	  	<title>RentARoom</title>
-	  	<link rel="icon" type="jpg/png" href="wow.jpg">
-	  	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-	  	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+	  	<link rel="icon" type="jpg/png" href="../logo.jpg">
+	  	<%= stylesheet_link_tag    'application', media: 'all'  %>
+	  	<%= javascript_include_tag 'application'  %>
 	  	<script src="../jquery-ui.js" /></script>
 	  	<link href="../jquery-ui.css" rel = "stylesheet" />
 	  	<script src="../chosen.jquery.js" /></script>
 		<link href="../chosen.css" rel="stylesheet" />
+		<style>
+			body {
+				background: url("../back.jpg");
+          		background-size:cover;
+          		background-repeat: no-repeat;
+		        width: 100%; 
+			}
+		</style>
 		
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -24,8 +32,8 @@
 	<body>
 		<div class="container">	
 			<%= render './layouts/nav' %>
-			<p class="notice"><%= notice %></p>
-			<p class="alert"><%= alert %></p>
+<!-- 			<p class="notice"><%= notice %></p>
+			<p class="alert"><%= alert %></p> -->
 			<!-- <p> -->
 				<%# if user_signed_in? %>
 					<%#= link_to "Bookings", dashboard_index_path %>

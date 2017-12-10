@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default">
+<nav class="navbar navbar">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/">Rent-A-Room</a>
+      <a class="navbar-brand" href="/"><img src="../logo.jpeg" style="max-width: 100%; max-height: 100%" ></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -49,6 +49,22 @@
           <% end %>
         <% end %>
       </ul>
+
+      <% if notice %> 
+        <ul class="nav navbar-nav " style="margin-top:15px">
+          <li>
+            <b><%= notice %></b>  
+          </li>
+        </ul>
+      <%end%>
+
+      <% if alert %> 
+        <ul class="nav navbar-nav " style="margin-top:15px">
+          <li>
+            <b><%= alert %></b>         
+          </li>
+        </ul>
+      <%end%>
       <!-- <form class="navbar-form navbar-left">
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Search">

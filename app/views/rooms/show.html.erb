@@ -106,24 +106,27 @@
 			</table>
 		<% end %>
 
-		<h2>Add Booking</h2>
-		<%= form_for @booking do |f| %>
+		<!-- <h2>Add Booking</h2> -->
+		<!-- Button trigger modal -->
+		<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">
+		  <i class="glyphicon glyphicon-plus"></i> Add Booking
+		</button>
 
-			<label><b>Start Date : </b></label> </br>
-			<%= f.text_field :start_date %> </br>
-			<span id="startDate"></span>
-
-			<label><b>End Date : </b></label> </br>
-			<%= f.text_field :end_date %> </br>
-			<span id="endDate"></span>
-
-			<label><b>Price : </b></label> <br/>
-			<!-- <input type="text" id="booking_price" value= "${}" ><br/> -->
-			<span id="booking_price"><%= f.text_field :price %></span><br/>
-
-			<%= f.hidden_field :room_id, value: @room.id %>
-			<%= f.submit "Create Booking", class: "btn btn-secondary" %>
-		<% end %><br/>
+		<!-- Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="myModalLabel">Add Booking</h4>
+		      </div>
+		      <div class="modal-body">
+		      	<div id="errorMsg"></div>
+				<%= render '/bookings/form' %>
+		      </div>
+		    </div>
+		  </div>
+		</div>
 
 		<p>
 			<button type="button" class="btn btn-secondary"><%= link_to "List Rooms", rooms_path %></button>
@@ -157,13 +160,13 @@
 </div>
 <!-- maps = AIzaSyAVop-Wj9ivBsW0ghXziYrHpj_c0kIkov8 -->
 
-<script>
+<!-- <script>
   $(document).ready(function(){
     var startDateHandle = document.getElementById('startDate');
     var endDateHandle = document.getElementById('endDate');
     // var booking_priceHandle = document.getElementById('booking_price').value;
 
-    var disabledDates = <%= raw Booking.all.pluck(:start_date, :end_date).map{|dates| (dates[0]..dates[1]).to_a}.flatten.uniq.map{|date| date.strftime("%d-%m-%Y")} %> 
+    var disabledDates = <%#= raw Booking.all.pluck(:start_date, :end_date).map{|dates| (dates[0]..dates[1]).to_a}.flatten.uniq.map{|date| date.strftime("%d-%m-%Y")} %> 
 
     function DisableSpecificDates(date) {
       	var string = jQuery.datepicker.formatDate('dd-mm-yy', date);
@@ -205,7 +208,7 @@
 			final = new Date($('#booking_end_date').val());
 			booking = (final - initial)/1000;
 			<%# binding.pry %>
-			cost = (((booking / 86400) + 1) * <%= @room.price %>)
+			cost = (((booking / 86400) + 1) * <%#= @room.price %>)
 			// document.getElementById('booking_price').value = cost;
 			$('#booking_price').html("$"+cost);
     	// }
@@ -250,7 +253,7 @@
     // });
 
   });
-</script>
+</script> -->
 
 
 

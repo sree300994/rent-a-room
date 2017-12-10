@@ -3,7 +3,7 @@
     <div class="page-header">
       <h2>Sign up</h2>
     </div>
-    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), remote: true) do |f| %>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
       
       <%= devise_error_messages! %>
 
@@ -50,6 +50,7 @@
 
       <div class="actions" id="submit">
         <%= f.submit "Sign up", class: "btn btn-secondary" %>
+        <span id="submit"></span>
       </div>
     <% end %>
   </div>
@@ -77,11 +78,7 @@
   }
 
   submitHandle.addEventListener('click', function(e){
-    if (validate.username || validate.email || validate.mobile) {
-      return true
-    } else {
-      e.preventDefault();
-    }
+
     if (usernameHandle.value == "") {
       usernameErrorHandle.innerHTML = "Can't be blank";
       validate.username = false;
@@ -110,6 +107,12 @@
       validate.mobile = false;
     }else {
       validate.mobile = true;
+    }
+
+    if (validate.username || validate.email || validate.mobile) {
+      return true
+    } else {
+      e.preventDefault();
     }
   }, false);
 </script>

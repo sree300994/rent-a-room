@@ -1,0 +1,12 @@
+<ul>
+	<li>
+		<p><b> User : </b><%= @booking.user.username %> </p>
+		<p><b> Mobile : </b><%= @booking.user.mobile %></p>
+		<p><b> Room_Name : </b><%= @booking.room.name %></p>
+		<p><b> Start_Date : </b><%= @booking.start_date %> </p>
+		<p><b> End_Date : </b><%= @booking.end_date %></p>
+		<p><b> Is_Confirmed : </b><%= @booking.is_confirmed %></p>
+		<p><b> Price : </b><%= @booking.price %></p>
+		<button type="button" class="btn btn-secondary"><%= link_to "Show", booking_path(@booking.id) %></button>
+	</li>
+</ul>

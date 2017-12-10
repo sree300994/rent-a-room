@@ -4,12 +4,12 @@ class Booking < ActiveRecord::Base
 	belongs_to :user
 	validates_presence_of :start_date, :end_date
 
-	validate :check_date
+	validate :check_date, on: :create
 	validate :booking_date, on: :create
 	validate :total, on: :create
 
 	def check_date
-		if self.start_date < Date.today || self.end_date < self.start_date
+		if self.end_date < self.start_date
 			self.errors.add(:date, "The date you are trying to book is not available")
 		end
 	end
