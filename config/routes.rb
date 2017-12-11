@@ -14,8 +14,10 @@ Rails.application.routes.draw do
   get 'rooms/my_rooms'
   
   devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
-  root 'cities#path_change'
-
+  # devise_scope :user do
+  #   root to: "devise/sessions#new"
+  # end
+root to: "cities#path_change"
   resources :rooms do
     resources :special_prices
   end
