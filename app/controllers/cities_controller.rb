@@ -1,6 +1,6 @@
 class CitiesController < ApplicationController
 
-	before_action :set_city, only: [:edit, :show, :destroy, :update]
+	before_action :set_city, only: [:edit, :destroy, :update]
 	before_action :authenticate_user!, except: [:index, :show, :path_change]
 	load_and_authorize_resource
 
@@ -52,6 +52,7 @@ class CitiesController < ApplicationController
 	end
 
 	def show
+		@city = City.friendly.find(params[:id])
 	end
 
 	def destroy

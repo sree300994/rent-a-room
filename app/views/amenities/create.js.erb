@@ -1,6 +1,7 @@
 <% if @amenity.errors.any? %>
 	$('#errorMsg').html("<%= escape_javascript render 'errors' %>");
 <% else %>
+	$('#errorMsg').hide();
 	$('#myModal').modal('hide');
 	$('#amenityList').append("<%= escape_javascript render 'amenities' %>")
 	$('#new_amenity')[0].reset();

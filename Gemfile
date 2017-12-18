@@ -15,6 +15,7 @@ gem 'carrierwave', '~> 1.1'
 gem 'mini_magick', '~> 4.8'
 gem 'omniauth', '~> 1.7.0'
 gem 'omniauth-facebook', '~> 4.0'
+gem 'friendly_id', '~> 5.2', '>= 5.2.3'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets

@@ -71,6 +71,8 @@ GEM
       multipart-post (>= 1.2, < 3)
     ffi (1.9.18)
     ffi (1.9.18-x86-mingw32)
+    friendly_id (5.2.3)
+      activerecord (>= 4.0.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     hashie (3.5.6)
@@ -216,6 +218,7 @@ DEPENDENCIES
   carrierwave (~> 1.1)
   coffee-rails (~> 4.1.0)
   devise
+  friendly_id (~> 5.2, >= 5.2.3)
   httparty
   jbuilder (~> 2.0)
   jquery-rails

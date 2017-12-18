@@ -1,6 +1,6 @@
 class AmenitiesController < ApplicationController
 
-	before_action :set_amenity, only: [:show, :edit, :update, :destroy]
+	before_action :set_amenity, only: [:edit, :update, :destroy]
 	before_action :authenticate_user!, except: [:index, :show]
 	load_and_authorize_resource
 
@@ -42,7 +42,7 @@ class AmenitiesController < ApplicationController
 	end
 
 	def show
-		
+		@amenity = Amenity.friendly.find(params[:id])
 	end
 
 	def destroy
