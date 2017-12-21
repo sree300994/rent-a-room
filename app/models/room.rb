@@ -14,6 +14,8 @@ class Room < ActiveRecord::Base
 	before_save :take_longitude_and_latitude_from_address
 	after_create :change_role
 	before_destroy :check_bookings
+	extend FriendlyId
+	friendly_id :name, use: [:slugged, :finders]
 	def take_longitude_and_latitude_from_address
 
 		address = HTTParty.get("http://maps.googleapis.com/maps/api/geocode/json?address=#{self.address}")

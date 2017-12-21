@@ -6,9 +6,9 @@
 		  <div class="card-padding">
 
         <!-- Event Header -->
-		  	<div class="row">
-		  		<h4 class="text-center"><%= link_to "#{room.name}", room_path(room) %></h4>
-		  	</div>
+ 	 	<div class="row">
+	  		<h4 class="text-center"><%= link_to "#{room.name}", room_path(room) %></h4>
+	  	</div>
 	      
         <!-- Room Control Panel -->
         <div class="row">
@@ -59,9 +59,9 @@
 		<div class="page-header">
 			<h2>Listing Rooms</h2>
 		</div>
-		<% if @rooms.empty? %>
+		<%# if @rooms.empty? %>
 			<p> No Rooms Found </p>
-		<% else %>
+		<%# else %>
 			<table class="table" id="roomList">
 				<thead>
 					<tr>
@@ -74,35 +74,35 @@
 					</tr>
 				</thead>
 				<tbody>
-					<% @rooms.each do |room| %>
+					<%# @rooms.each do |room| %>
 						<tr>
-							<td><%= link_to room.name, room_path(room.id) %></td>
+							<td><%#= link_to room.name, room_path(room.id) %></td>
 							<td>
-          						<%= room.description.truncate(150) %>
-          						<%= link_to room, class: "btn btn-info pull-right btn-sm" do %>
+          						<%#= room.description.truncate(150) %>
+          						<%#= link_to room, class: "btn btn-info pull-right btn-sm" do %>
             						<i class="glyphicon glyphicon-share-alt"></i> Read More
-          						<% end %>
+          						<%# end %>
           					</td>
-							<td><%= room.address %></td>
-							<td><%= room.city.name %></td>
-							<td><%= image_tag room.images.url %></td>
+							<td><%#= room.address %></td>
+							<td><%#= room.city.name %></td>
+							<td><%#= image_tag room.images.url %></td>
 							<td>
-								<% room.amenities.each do |amenity| %>
-									<li><%= amenity.name %></li>
-								<% end %>
-								(<%= room.amenities.count %>)
+								<%# room.amenities.each do |amenity| %>
+									<li><%#= amenity.name %></li>
+								<%# end %>
+								(<%#= room.amenities.count %>)
 							</td>
 						</tr>
-					<% end %>
+					<%# end %>
 				</tbody>
 			</table>
-		<% end %>
+		<%# end %>
 
-		<%= will_paginate @rooms %> <br/>
+		<%#= will_paginate @rooms %> <br/>
 
-		<% if can? :create, Room.new %>
-			<button type="button" class="btn btn-secondary"><%= link_to "Add Room", new_room_path %></button>
-		<% end %>
+		<%# if can? :create, Room.new %>
+			<button type="button" class="btn btn-secondary"><%#= link_to "Add Room", new_room_path %></button>
+		<%# end %>
 	</div>
 	<div class="col-md-5">
 		<div class="page-header">
@@ -121,9 +121,9 @@
     });
 
     var locations = []
-    <% @rooms.each do |room| %>
-    	locations.push([<%= room.latitude %>, <%= room.longitude %>])
-    <% end %>
+    <%# @rooms.each do |room| %>
+    	locations.push([<%#= room.latitude %>, <%#= room.longitude %>])
+    <%# end %>
     console.log(locations);
     var infowindow = new google.maps.InfoWindow();
 
@@ -142,10 +142,10 @@
         }
       })(marker, i));
     }
-  </script> -->
+  </script>
 
 
-<!-- <script>
+<script>
 	$(document).ready(function(){
 		$('#roomList').DataTable();
 	});
